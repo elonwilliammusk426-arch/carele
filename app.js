@@ -1,4 +1,5 @@
-// Tesla Tesla Ecosystem Interactive Script
+// Tesla Platform Frontend Script - Real Backend Connectivity
+
 document.addEventListener('DOMContentLoaded', function () {
   // Mobile nav toggle
   var toggle = document.querySelector('.nav-toggle');
@@ -23,19 +24,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Request / Sourcing brief mock submission
+  // Request form real submission
   var requestForm = document.getElementById('request-form');
   if (requestForm) {
     requestForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      var panel = document.getElementById('confirm-panel');
-      var idField = document.getElementById('confirm-id');
-      if (idField) {
-        idField.textContent = 'TSLA-REQ-' + Math.floor(100000 + Math.random() * 900000);
-      }
-      requestForm.style.display = 'none';
-      if (panel) panel.classList.add('show');
-      panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var selects = requestForm.querySelectorAll('select');
+      var inputs = requestForm.querySelectorAll('input[type="text"]');
+      var textarea = requestForm.querySelector('textarea');
+      
+      var serviceType = selects.length > 0 ? selects[0].value : 'Personal Sourcing';
+      var model = inputs.length > 0 ? inputs[inputs.length - 1].value : 'Tesla Model Y';
+      var name = inputs.length > 1 ? inputs[0].value : 'Client';
+      var email = inputs.length > 2 ? inputs[1].value : 'client@tesla.com';
+      var notes = textarea ? textarea.value : '';
+
+      fetch('/api/briefs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ service_type: serviceType, model: model, name: name, email: email, notes: notes })
+      })
+      .then(res => res.json())
+      .then(data => {
+        var panel = document.getElementById('confirm-panel');
+        var idField = document.getElementById('confirm-id');
+        if (idField) {
+          idField.textContent = data.id;
+        }
+        requestForm.style.display = 'none';
+        if (panel) panel.classList.add('show');
+        panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     });
   }
 
@@ -50,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Track order mock lookup
+  // Track order real lookup
   var trackForm = document.getElementById('track-form');
   if (trackForm) {
     trackForm.addEventListener('submit', function (e) {
@@ -59,11 +78,21 @@ document.addEventListener('DOMContentLoaded', function () {
       var result = document.getElementById('track-result');
       var idOut = document.getElementById('track-id-out');
       if (!input || !input.value.trim()) return;
-      if (idOut) idOut.textContent = input.value.trim().toUpperCase();
-      if (result) {
-        result.classList.add('show');
-        result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      var briefId = input.value.trim().toUpperCase();
+
+      fetch('/api/briefs/lookup?id=' + encodeURIComponent(briefId))
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          alert('Reference ID not found in Tesla database.');
+          return;
+        }
+        if (idOut) idOut.textContent = data.id;
+        if (result) {
+          result.classList.add('show');
+          result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
     });
   }
 });

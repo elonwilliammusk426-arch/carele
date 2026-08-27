@@ -1,347 +1,187 @@
-// Mobile nav toggle
-document.addEventListener('DOMContentLoaded', function () {
-  var toggle = document.querySelector('.nav-toggle');
-  var nav = document.querySelector('.main-nav');
-  if (toggle && nav) {
-    toggle.addEventListener('click', function () {
-      nav.classList.toggle('open');
-    });
-    nav.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () { nav.classList.remove('open'); });
-    });
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeslaSourcing— We source it. Anywhere. You receive it.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-  // FAQ accordion
-  document.querySelectorAll('.faq-item').forEach(function (item) {
-    var q = item.querySelector('.faq-q');
-    if (!q) return;
-    q.addEventListener('click', function () {
-      var wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(function (o) { o.classList.remove('open'); });
-      if (!wasOpen) item.classList.add('open');
-    });
-  });
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">FARSIDE</a>
+    <nav class="main-nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="categories.html">What We Source</a>
+      <a href="track-order.html">Track Order</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="nav-right">
+      <a href="customer/index.html" class="nav-icon-btn">Account</a>
+      <button class="nav-icon-btn" id="menu-btn" aria-label="Open menu">
+        <span class="menu-lines"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-  // Request form mock submission
-  var requestForm = document.getElementById('request-form');
-  if (requestForm) {
-    requestForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var panel = document.getElementById('confirm-panel');
-      var idField = document.getElementById('confirm-id');
-      if (idField) {
-        idField.textContent = 'REQ-' + Math.floor(100000 + Math.random() * 900000);
-      }
-      requestForm.style.display = 'none';
-      if (panel) panel.classList.add('show');
-      panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
-  }
+<div class="menu-overlay" id="menu-overlay">
+  <button class="close-x" aria-label="Close menu">&times;</button>
+  <a href="index.html">Home</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="categories.html">What We Source</a>
+  <a href="track-order.html">Track Order</a>
+  <a href="request.html">Request an Item</a>
+  <a href="about.html">About</a>
+  <a href="customer/index.html">My Account</a>
+  <a href="admin/index.html">Admin</a>
+</div>
 
-  // Contact form mock submission
-  var contactForm = document.getElementById('contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var panel = document.getElementById('contact-confirm');
-      contactForm.style.display = 'none';
-      if (panel) panel.classList.add('show');
-    });
-  }
+<!-- HERO -->
+<section class="hero" style="background-image:url('https://picsum.photos/seed/farside-world/1800/1200');">
+  <div class="hero-content">
+    <div class="hero-kicker">Personal Sourcing · Worldwide Delivery</div>
+    <h1 class="hero-title">Find it anywhere.
+We'll go get it.</h1>
+    <p class="hero-sub">We source items directly from their original retailer or maker, wherever they are, and deliver them to your door.</p>
+    <div class="pill-row">
+      <a href="request.html" class="pill pill-solid-light">Request an Item</a>
+      <a href="how-it-works.html" class="pill pill-outline-light">How It Works</a>
+    </div>
+  </div>
+  <div class="scroll-cue"></div>
+</section>
 
-  // Track order mock lookup
-  var trackForm = document.getElementById('track-form');
-  if (trackForm) {
-    trackForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var input = document.getElementById('track-input');
-      var result = document.getElementById('track-result');
-      var idOut = document.getElementById('track-id-out');
-      if (!input.value.trim()) return;
-      if (idOut) idOut.textContent = input.value.trim().toUpperCase();
-      if (result) {
-        result.classList.add('show');
-        result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  }
-});
+<!-- SHOWCASE 1: Fashion -->
+<div class="showcase" style="background-image:url('https://picsum.photos/seed/farside-fashion/1600/1200');"></div>
+<div class="showcase-strip">
+  <h2>Fashion &amp; Footwear</h2>
+  <p class="desc">Runway pieces, region-exclusive releases, and archival finds — bought in person from the original store.</p>
+  <div class="pill-row">
+    <a href="categories.html" class="pill pill-outline-dark">Learn More</a>
+    <a href="request.html" class="pill pill-solid-dark">Request an Item</a>
+  </div>
+</div>
 
-/* Dashboard shell - extends styles.css tokens */
+<!-- SHOWCASE 2: Home -->
+<div class="showcase" style="background-image:url('https://picsum.photos/seed/farside-home/1600/1200');"></div>
+<div class="showcase-strip tint">
+  <h2>Furniture &amp; Home</h2>
+  <p class="desc">Studio-made pieces and regional craft that never ship internationally on their own.</p>
+  <div class="pill-row">
+    <a href="categories.html" class="pill pill-outline-dark">Learn More</a>
+    <a href="request.html" class="pill pill-solid-dark">Request an Item</a>
+  </div>
+</div>
 
-.app-shell{
-  display:grid;
-  grid-template-columns:260px 1fr;
-  min-height:100vh;
-  background:var(--paper);
-}
+<!-- SHOWCASE 3: Electronics -->
+<div class="showcase" style="background-image:url('https://picsum.photos/seed/farside-tech/1600/1200');"></div>
+<div class="showcase-strip">
+  <h2>Electronics</h2>
+  <p class="desc">Region-locked releases and launch-day drops, sourced the moment they land in stores.</p>
+  <div class="pill-row">
+    <a href="categories.html" class="pill pill-outline-dark">Learn More</a>
+    <a href="request.html" class="pill pill-solid-dark">Request an Item</a>
+  </div>
+</div>
 
-/* SIDEBAR */
-.app-sidebar{
-  background:var(--void);
-  color:var(--paper);
-  padding:28px 22px;
-  display:flex;
-  flex-direction:column;
-  position:sticky;
-  top:0;
-  height:100vh;
-}
-.app-sidebar .logo{ padding-bottom:28px; border-bottom:1px solid var(--line-dark); margin-bottom:24px; }
-.app-sidebar .logo-text{ color:var(--paper); }
+<!-- STATS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="stat-row">
+      <div class="stat"><div class="num">64</div><div class="lbl">Countries delivered to</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">Verified at source</div></div>
+      <div class="stat"><div class="num">3–18</div><div class="lbl">Days, source to door</div></div>
+      <div class="stat"><div class="num">1:1</div><div class="lbl">Personal handling, every order</div></div>
+    </div>
+  </div>
+</section>
 
-.side-label{
-  font-family:var(--mono);
-  font-size:10px;
-  letter-spacing:0.12em;
-  text-transform:uppercase;
-  color:var(--slate);
-  margin:20px 0 10px;
-}
-.side-nav{ display:flex; flex-direction:column; gap:2px; }
-.side-nav button{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  background:none;
-  border:none;
-  color:var(--slate-light);
-  text-align:left;
-  padding:11px 12px;
-  border-radius:3px;
-  font-size:14px;
-  font-weight:500;
-  font-family:var(--body);
-}
-.side-nav button .ico{ font-family:var(--mono); font-size:12px; color:var(--slate); width:18px; }
-.side-nav button:hover{ background:var(--void-soft); color:var(--paper); }
-.side-nav button.active{ background:var(--void-soft); color:var(--paper); }
-.side-nav button.active .ico{ color:var(--amber); }
+<!-- QUOTE -->
+<section class="section tint">
+  <div class="section-inner quote">
+    <p>"I'd been trying to get a piece from a workshop in Kyoto for two years. Farside had it on a plane within a week."</p>
+    <div class="attr">M. Alders — Toronto</div>
+  </div>
+</section>
 
-.sidebar-foot{
-  margin-top:auto;
-  padding-top:20px;
-  border-top:1px solid var(--line-dark);
-}
-.sidebar-foot a{
-  font-size:13px;
-  color:var(--slate-light);
-  display:block;
-  padding:8px 4px;
-}
-.sidebar-foot a:hover{ color:var(--amber); }
+<!-- HOW IT WORKS TEASER -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>Three steps. One person handling every one of them.</h2>
+      <p>No algorithms, no drop-shipping — we go get the actual thing.</p>
+    </div>
+    <div class="plain-steps">
+      <div class="plain-step"><div class="n">01</div><div><h3>You tell us what you want</h3><p>Send a link, photo, or description — plus where you are.</p></div></div>
+      <div class="plain-step"><div class="n">02</div><div><h3>We source it in person</h3><p>Bought directly from the original store or maker, then inspected.</p></div></div>
+      <div class="plain-step"><div class="n">03</div><div><h3>It arrives at your door</h3><p>Tracked worldwide shipping, customs handled.</p></div></div>
+    </div>
+  </div>
+</section>
 
-.user-chip{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 4px 0;
-}
-.avatar{
-  width:32px; height:32px;
-  border-radius:50%;
-  background:var(--cargo);
-  color:var(--paper);
-  display:flex; align-items:center; justify-content:center;
-  font-family:var(--mono); font-size:12px; font-weight:600;
-  flex-shrink:0;
-}
-.user-chip .who{ font-size:13px; }
-.user-chip .who .role{ display:block; font-family:var(--mono); font-size:10px; color:var(--slate); text-transform:uppercase; letter-spacing:0.06em; }
+<!-- CTA -->
+<div class="showcase" style="background-image:url('https://picsum.photos/seed/farside-cta/1600/900');"></div>
+<div class="showcase-strip">
+  <h2>Have something in mind?</h2>
+  <p class="desc">Tell us what you're looking for — we'll confirm sourcing and a delivery estimate within 24 hours.</p>
+  <div class="pill-row">
+    <a href="request.html" class="pill pill-solid-dark">Start a Request</a>
+    <a href="track-order.html" class="pill pill-outline-dark">Track an Order</a>
+  </div>
+</div>
 
-/* MAIN */
-.app-main{ padding:36px 44px 60px; max-width:1240px; }
-.app-topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  margin-bottom:36px;
-  gap:20px;
-  flex-wrap:wrap;
-}
-.app-topbar h1{ font-size:30px; }
-.app-topbar p{ margin-top:8px; color:var(--slate); font-size:14px; }
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h4>SITE</h4>
+      <ul>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="categories.html">What We Source</a></li>
+        <li><a href="track-order.html">Track Order</a></li>
+        <li><a href="request.html">Request an Item</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>COMPANY</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="about.html#contact">Contact</a></li>
+        <li><a href="how-it-works.html#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ACCOUNT</h4>
+      <ul>
+        <li><a href="customer/index.html">My Account</a></li>
+        <li><a href="admin/index.html">Admin</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ELSEWHERE</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">X / Twitter</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>LEGAL</h4>
+      <ul>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TeslaSourcing Co.</span>
+    <span>Worldwide delivery, sourced in person.</span>
+  </div>
+</footer>
 
-.view{ display:none; }
-.view.active{ display:block; }
-
-/* CARDS / STATS */
-.dash-stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:1px;
-  background:var(--line);
-  border:1px solid var(--line);
-  margin-bottom:40px;
-}
-.dash-stat{ background:var(--paper); padding:24px; }
-.dash-stat .num{ font-family:var(--display); font-size:30px; }
-.dash-stat .num.amber{ color:var(--amber); }
-.dash-stat .lbl{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--slate); margin-top:6px; }
-@media (max-width:900px){ .dash-stats{ grid-template-columns:repeat(2,1fr); } }
-
-.panel{
-  background:var(--paper);
-  border:1px solid var(--line);
-  padding:0;
-  margin-bottom:32px;
-}
-.panel-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 24px;
-  border-bottom:1px solid var(--line);
-  flex-wrap:wrap;
-  gap:12px;
-}
-.panel-head h3{ font-size:16px; }
-.panel-body{ padding:8px 24px 20px; }
-
-/* TABLE */
-.dtable{ width:100%; border-collapse:collapse; }
-.dtable th{
-  text-align:left;
-  font-family:var(--mono);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:0.06em;
-  color:var(--slate);
-  padding:14px 12px;
-  border-bottom:1px solid var(--line);
-}
-.dtable td{
-  padding:16px 12px;
-  border-bottom:1px solid var(--line);
-  font-size:14px;
-  vertical-align:middle;
-}
-.dtable tr:last-child td{ border-bottom:none; }
-.dtable tr.clickable{ cursor:pointer; }
-.dtable tr.clickable:hover{ background:var(--paper-dim); }
-.cell-id{ font-family:var(--mono); font-size:13px; color:var(--slate); }
-.cell-main{ font-weight:600; }
-.cell-sub{ font-size:12px; color:var(--slate); margin-top:3px; }
-
-/* STATUS BADGES */
-.badge{
-  display:inline-block;
-  font-family:var(--mono);
-  font-size:11px;
-  letter-spacing:0.05em;
-  text-transform:uppercase;
-  padding:5px 10px;
-  border-radius:2px;
-  white-space:nowrap;
-}
-.badge-new{ background:#EAF0FB; color:var(--cargo); }
-.badge-quoted{ background:#FDF1DD; color:#93690E; }
-.badge-sourcing{ background:#F0EAFB; color:#5B3A9E; }
-.badge-shipped{ background:#E4F5EC; color:#1E7A46; }
-.badge-delivered{ background:#E9E9E9; color:#3A3A3A; }
-.badge-action{ background:var(--amber); color:var(--void); }
-
-.btn-sm{
-  font-family:var(--mono);
-  font-size:12px;
-  padding:8px 14px;
-  border:1px solid var(--line);
-  background:var(--paper);
-  border-radius:2px;
-}
-.btn-sm:hover{ border-color:var(--void); }
-.btn-sm.primary{ background:var(--void); color:var(--paper); border-color:var(--void); }
-.btn-sm.primary:hover{ background:#000; }
-.btn-sm.warn{ background:var(--amber); color:var(--void); border-color:var(--amber); }
-
-.search-box{
-  border:1px solid var(--line);
-  padding:9px 14px;
-  font-size:13px;
-  min-width:220px;
-  background:var(--paper);
-}
-
-.filter-row{ display:flex; gap:8px; flex-wrap:wrap; }
-.chip{
-  font-family:var(--mono);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:0.05em;
-  padding:7px 13px;
-  border:1px solid var(--line);
-  border-radius:20px;
-  color:var(--slate);
-  background:var(--paper);
-}
-.chip.active{ background:var(--void); color:var(--paper); border-color:var(--void); }
-
-/* DETAIL DRAWER */
-.drawer-overlay{
-  position:fixed; inset:0;
-  background:rgba(11,12,14,0.5);
-  display:none;
-  z-index:200;
-}
-.drawer-overlay.show{ display:block; }
-.drawer{
-  position:fixed;
-  top:0; right:0;
-  width:min(480px, 92vw);
-  height:100vh;
-  background:var(--paper);
-  z-index:201;
-  transform:translateX(100%);
-  transition:transform .25s ease;
-  overflow-y:auto;
-  padding:32px;
-}
-.drawer.show{ transform:translateX(0); }
-.drawer-close{
-  background:none; border:none;
-  font-family:var(--mono);
-  font-size:13px;
-  color:var(--slate);
-  padding:0; margin-bottom:24px;
-}
-.drawer-close:hover{ color:var(--void); }
-
-/* MESSAGES */
-.thread{ display:flex; flex-direction:column; gap:14px; margin-bottom:20px; }
-.msg{ max-width:78%; padding:12px 16px; border-radius:3px; font-size:14px; }
-.msg-them{ background:var(--paper-dim); align-self:flex-start; }
-.msg-me{ background:var(--void); color:var(--paper); align-self:flex-end; }
-.msg-meta{ font-family:var(--mono); font-size:10px; color:var(--slate); margin-top:6px; }
-.msg-me .msg-meta{ color:var(--slate-light); }
-.msg-row{ display:flex; flex-direction:column; }
-.msg-row.mine{ align-items:flex-end; }
-.compose-row{ display:flex; gap:10px; }
-.compose-row input{ flex:1; border:1px solid var(--line); padding:12px 14px; font-size:14px; }
-
-/* EMPTY STATE */
-.empty-state{
-  text-align:center;
-  padding:60px 20px;
-  color:var(--slate);
-}
-.empty-state .eyebrow{ justify-content:center; }
-.empty-state h3{ margin-top:14px; font-size:20px; color:var(--void); }
-.empty-state p{ margin-top:8px; font-size:14px; max-width:340px; margin-left:auto; margin-right:auto; }
-
-/* MOBILE */
-@media (max-width:900px){
-  .app-shell{ grid-template-columns:1fr; }
-  .app-sidebar{
-    position:relative;
-    height:auto;
-    flex-direction:row;
-    align-items:center;
-    flex-wrap:wrap;
-    padding:16px 18px;
-  }
-  .app-sidebar .logo{ border:none; margin:0; padding:0; }
-  .side-label{ display:none; }
-  .side-nav{ flex-direction:row; flex-wrap:wrap; margin-left:auto; }
-  .sidebar-foot, .user-chip{ display:none; }
-  .app-main{ padding:24px 18px 40px; }
-}
+<script src="script.js"></script>
+</body>
+</html>

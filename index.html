@@ -51,91 +51,12 @@
             position: relative;
             z-index: 2;
         }
-        .tesla-btn-primary {
-            background-color: rgba(23, 26, 32, 0.8);
-            color: #ffffff;
-            border: none;
-            border-radius: 9999px;
-            width: 264px;
-            height: 40px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .tesla-btn-primary:hover { background-color: #171a20; }
-        .tesla-btn-secondary {
-            background-color: rgba(244, 244, 244, 0.65);
-            color: #171a20;
-            border: none;
-            border-radius: 9999px;
-            width: 264px;
-            height: 40px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .tesla-btn-secondary:hover { background-color: #ffffff; }
-        
-        /* Tesla Header Navigation */
-        .tesla-nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-            background: transparent;
-            transition: background 0.3s ease;
-        }
-        .tesla-nav.scrolled {
-            background: rgba(14, 17, 17, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .tesla-nav svg { width: 120px; fill: #ffffff; }
-        .tesla-menu-links {
-            display: flex;
-            gap: 4px;
-            list-style: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        .tesla-menu-links a {
-            padding: 4px 16px;
-            border-radius: 4px;
-            transition: background 0.2s;
-            color: #ffffff;
-            text-decoration: none;
-        }
-        .tesla-menu-links a:hover { background: rgba(255,255,255,0.1); }
-        .tesla-right-links {
-            display: flex;
-            gap: 16px;
-            font-size: 14px;
-            font-weight: 500;
-            align-items: center;
-        }
-        .tesla-right-links a { color: #ffffff; text-decoration: none; padding: 4px 8px; }
-        
         .scroll-down {
             position: relative;
             z-index: 2;
             animation: bounce 2s infinite;
             cursor: pointer;
+            color: #ffffff;
         }
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
@@ -144,7 +65,7 @@
         }
     </style>
 </head>
-<body class="bg-black text-white antialiased overflow-x-hidden">
+<body class="bg-white text-[#171a20] antialiased overflow-x-hidden">
 
     <!-- Tesla Header Navigation -->
     <nav class="tesla-nav" id="teslaNav">
@@ -161,9 +82,9 @@
             <li><a href="#powerwall">Powerwall</a></li>
         </ul>
         <div class="tesla-right-links">
-            <a href="dashboard.html" class="hidden sm:inline-block">Shop</a>
+            <a href="categories.html" class="hidden sm:inline-block">Showcase</a>
+            <a href="dashboard.html">Portal</a>
             <a href="auth.html">Account</a>
-            <a href="admin-dashboard.html" class="text-red-500 font-semibold">Admin</a>
         </div>
     </nav>
 
@@ -174,14 +95,14 @@
         </video>
         <div class="tesla-overlay"></div>
         <div class="tesla-content space-y-2 pt-12">
-            <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white">Model Y</h1>
-            <p class="text-sm text-gray-300 font-light underline underline-offset-4 cursor-pointer">From $31,490 After Federal Tax Credit</p>
+            <h1 class="text-4xl md:text-5xl font-medium tracking-tight text-white">Model Y</h1>
+            <p class="text-sm text-gray-200 font-light underline underline-offset-4 cursor-pointer">From $31,490 After Federal Tax Credit</p>
         </div>
         <div class="tesla-content flex flex-col sm:flex-row gap-4 w-full max-w-xl justify-center pb-8">
             <a href="configurator.html" class="tesla-btn-primary">Order Now</a>
             <a href="configurator.html" class="tesla-btn-secondary">Learn More</a>
         </div>
-        <div class="scroll-down text-white text-xl pb-2">⌄</div>
+        <div class="scroll-down text-xl pb-2">⌄</div>
     </section>
 
     <!-- 2. MODEL 3 -->
@@ -191,44 +112,44 @@
         </video>
         <div class="tesla-overlay"></div>
         <div class="tesla-content space-y-2 pt-12">
-            <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white">Model 3</h2>
-            <p class="text-sm text-gray-300 font-light underline underline-offset-4 cursor-pointer">Lease Starting at $329/mo</p>
+            <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white">Model 3</h2>
+            <p class="text-sm text-gray-200 font-light underline underline-offset-4 cursor-pointer">Lease Starting at $329/mo</p>
         </div>
         <div class="tesla-content flex flex-col sm:flex-row gap-4 w-full max-w-xl justify-center pb-8">
             <a href="configurator.html" class="tesla-btn-primary">Order Now</a>
             <a href="configurator.html" class="tesla-btn-secondary">Learn More</a>
         </div>
-        <div class="scroll-down text-white text-xl pb-2">⌄</div>
+        <div class="scroll-down text-xl pb-2">⌄</div>
     </section>
 
     <!-- 3. MODEL S -->
     <section id="models" class="tesla-section">
-        <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-LHD.jpg" alt="Model S" class="tesla-bg" onerror="this.src='https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=2000&q=80'">
+        <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-LHD.jpg" alt="Model S" class="tesla-bg" onerror="this.src='https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=2000&q=80'">
         <div class="tesla-overlay"></div>
         <div class="tesla-content space-y-2 pt-12">
-            <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white">Model S</h2>
-            <p class="text-sm text-gray-300 font-light underline underline-offset-4 cursor-pointer">Plaid • 0-60 mph in 1.99s</p>
+            <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white">Model S</h2>
+            <p class="text-sm text-gray-200 font-light underline underline-offset-4 cursor-pointer">Plaid • 0-60 mph in 1.99s</p>
         </div>
         <div class="tesla-content flex flex-col sm:flex-row gap-4 w-full max-w-xl justify-center pb-8">
             <a href="configurator.html" class="tesla-btn-primary">Order Now</a>
             <a href="configurator.html" class="tesla-btn-secondary">Learn More</a>
         </div>
-        <div class="scroll-down text-white text-xl pb-2">⌄</div>
+        <div class="scroll-down text-xl pb-2">⌄</div>
     </section>
 
     <!-- 4. MODEL X -->
     <section id="modelx" class="tesla-section">
-        <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-X-Hero-Desktop-LHD.jpg" alt="Model X" class="tesla-bg" onerror="this.src='https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=2000&q=80'">
+        <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-X-Hero-Desktop-LHD.jpg" alt="Model X" class="tesla-bg" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=2000&q=80'">
         <div class="tesla-overlay"></div>
         <div class="tesla-content space-y-2 pt-12">
-            <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white">Model X</h2>
-            <p class="text-sm text-gray-300 font-light underline underline-offset-4 cursor-pointer">From $65,990 After Federal Tax Credit & Gas Savings</p>
+            <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white">Model X</h2>
+            <p class="text-sm text-gray-200 font-light underline underline-offset-4 cursor-pointer">From $65,990 After Federal Tax Credit & Gas Savings</p>
         </div>
         <div class="tesla-content flex flex-col sm:flex-row gap-4 w-full max-w-xl justify-center pb-8">
             <a href="configurator.html" class="tesla-btn-primary">Order Now</a>
             <a href="configurator.html" class="tesla-btn-secondary">Learn More</a>
         </div>
-        <div class="scroll-down text-white text-xl pb-2">⌄</div>
+        <div class="scroll-down text-xl pb-2">⌄</div>
     </section>
 
     <!-- 5. CYBERTRUCK -->
@@ -238,14 +159,14 @@
         </video>
         <div class="tesla-overlay"></div>
         <div class="tesla-content space-y-2 pt-12">
-            <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white">Cybertruck</h2>
-            <p class="text-sm text-gray-300 font-light">Built for Any Planet</p>
+            <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white">Cybertruck</h2>
+            <p class="text-sm text-gray-200 font-light">Built for Any Planet</p>
         </div>
         <div class="tesla-content flex flex-col sm:flex-row gap-4 w-full max-w-xl justify-center pb-8">
             <a href="configurator.html" class="tesla-btn-primary">Order Now</a>
             <a href="configurator.html" class="tesla-btn-secondary">Learn More</a>
         </div>
-        <div class="scroll-down text-white text-xl pb-2">⌄</div>
+        <div class="scroll-down text-xl pb-2">⌄</div>
     </section>
 
     <!-- 6. SOLAR ROOF -->
@@ -253,14 +174,14 @@
         <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Solar-Roof-Hero-Desktop-Global.jpg" alt="Solar Roof" class="tesla-bg" onerror="this.src='https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=2000&q=80'">
         <div class="tesla-overlay"></div>
         <div class="tesla-content space-y-2 pt-12">
-            <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white">Solar Roof</h2>
-            <p class="text-sm text-gray-300 font-light">Produce Clean Energy From Your Roof</p>
+            <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white">Solar Roof</h2>
+            <p class="text-sm text-gray-200 font-light">Produce Clean Energy From Your Roof</p>
         </div>
         <div class="tesla-content flex flex-col sm:flex-row gap-4 w-full max-w-xl justify-center pb-8">
             <a href="calculator.html" class="tesla-btn-primary">Order Now</a>
             <a href="calculator.html" class="tesla-btn-secondary">Learn More</a>
         </div>
-        <div class="scroll-down text-white text-xl pb-2">⌄</div>
+        <div class="scroll-down text-xl pb-2">⌄</div>
     </section>
 
     <!-- 7. POWERWALL -->
@@ -268,36 +189,28 @@
         <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Powerwall-Hero-Desktop-Global.jpg" alt="Powerwall" class="tesla-bg" onerror="this.src='https://images.unsplash.com/photo-1558449028-b53a39d100fc?auto=format&fit=crop&w=2000&q=80'">
         <div class="tesla-overlay"></div>
         <div class="tesla-content space-y-2 pt-12">
-            <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white">Powerwall 3</h2>
-            <p class="text-sm text-gray-300 font-light">Whole-Home Energy Backup</p>
+            <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white">Powerwall 3</h2>
+            <p class="text-sm text-gray-200 font-light">Whole-Home Energy Backup</p>
         </div>
         <div class="tesla-content flex flex-col sm:flex-row gap-4 w-full max-w-xl justify-center pb-8">
             <a href="calculator.html" class="tesla-btn-primary">Order Now</a>
-            <a href="calculator.html" class="tesla-btn-secondary">Learn Model</a>
+            <a href="calculator.html" class="tesla-btn-secondary">Learn More</a>
         </div>
-        <div class="scroll-down text-white text-xl pb-2">⌄</div>
+        <div class="scroll-down text-xl pb-2">⌄</div>
     </section>
 
-    <!-- 8. ACCESSORIES -->
-    <section class="tesla-section bg-[#171a20] flex flex-col justify-center items-center text-center px-6">
-        <div class="max-w-2xl space-y-6 tesla-content">
-            <h2 class="text-4xl md:text-5xl font-bold">Accessories</h2>
-            <div class="flex flex-wrap justify-center gap-4 pt-4">
-                <a href="configurator.html" class="tesla-btn-primary" style="background-color: #ffffff; color: #171a20;">Shop Now</a>
-            </div>
-            <div class="pt-20 text-xs text-[#9ca3af] space-y-4">
-                <div class="flex flex-wrap justify-center gap-6 text-xs text-gray-400">
-                    <a href="about.html" class="hover:text-white">Tesla © 2026</a>
-                    <a href="about.html" class="hover:text-white">Privacy & Legal</a>
-                    <a href="about.html" class="hover:text-white">Vehicle Recalls</a>
-                    <a href="about.html" class="hover:text-white">Contact</a>
-                    <a href="about.html" class="hover:text-white">News</a>
-                    <a href="about.html" class="hover:text-white">Get Updates</a>
-                    <a href="about.html" class="hover:text-white">Locations</a>
-                </div>
-            </div>
+    <!-- Tiny Muted Footer -->
+    <footer class="tesla-footer">
+        <p>Tesla © 2026</p>
+        <div class="footer-links">
+            <a href="about.html">Privacy & Legal</a>
+            <a href="about.html">Vehicle Recalls</a>
+            <a href="about.html">Contact</a>
+            <a href="about.html">News</a>
+            <a href="about.html">Get Updates</a>
+            <a href="about.html">Locations</a>
         </div>
-    </section>
+    </footer>
 
     <script src="app.js"></script>
     <script src="i18n.js"></script>

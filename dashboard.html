@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Portal | Tesla Consignment</title>
+    <title>Client Portal | Tesla</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
         <aside class="app-sidebar">
             <div class="logo">
                 <svg viewBox="0 0 342 35" xmlns="http://www.w3.org/2000/svg"><path d="M0 .1a9.7 9.7 0 107 7 11 11 0 00-7-7zm25.8 2.3c2.4 0 4.3.4 5.8 1.3 1.5.9 2.6 2.2 3.3 3.9.7 1.7 1 3.7 1 6.1s-.3 4.4-1 6.1c-.7 1.7-1.8 3-3.3 3.9-1.5.9-3.4 1.3-5.8 1.3s-4.3-.4-5.8-1.3c-1.5-.9-2.6-2.2-3.3-3.9-.7-1.7-1-3.7-1-6.1s.3-4.4 1-6.1c.7-1.7 1.8-3 3.3-3.9 1.5-.9 3.4-1.3 5.8-1.3zm0 2.2c-1.8 0-3.3.3-4.4 1-1.1.7-1.9 1.6-2.4 2.9-.5 1.3-.8 2.9-.8 4.7s.3 3.4.8 4.7c.5 1.3 1.3 2.2 2.4 2.9 1.1.7 2.6 1 4.4 1s3.3-.3 4.4-1c1.1-.7 1.9-1.6 2.4-2.9.5-1.3.8-2.9.8-4.7s-.3-3.4-.8-4.7c-.5-1.3-1.3-2.2-2.4-2.9-1.1-.7-2.6-1-4.4-1zm37.2-2.7h19.5v2.2H83v18.7h-2.3V4.6H63v-2.2zm31.7 0h2.3v20.9h-2.3V2.4zm34.2 0h2.3l11.4 20.9h-2.5l-3.5-6.6H127l-3.5 6.6h-2.5l11.4-20.9zm-4.3 12.1h8.2l-4.1-7.8-4.1 7.8zm41.2-12.1h19.5v2.2h-17.2v7.1h16.2v2.2h-16.2v7.2h17.2v2.2h-19.5V2.4zm35.8 0h2.3v18.7h15v2.2h-17.3V2.4zm35.2 0h2.3v18.7h15v2.2h-17.3V2.4z"/></svg>
-                <div class="text-[10px] text-tesla-muted uppercase tracking-widest mt-2">Client Garage</div>
+                <div class="text-[10px] text-gray-500 uppercase tracking-widest mt-2">Client Garage</div>
             </div>
 
             <div class="side-label">Acquisitions & Vault</div>
@@ -31,9 +31,6 @@
                 <button onclick="switchView('consignment')" id="nav-consignment">
                     <span class="ico">⚡</span> Active Consignments
                 </button>
-                <button onclick="switchView('messages')" id="nav-messages">
-                    <span class="ico">💬</span> Concierge Chat
-                </button>
             </nav>
 
             <div class="side-label">System</div>
@@ -44,9 +41,9 @@
 
             <div class="sidebar-foot">
                 <div class="user-chip">
-                    <div class="avatar">EM</div>
+                    <div class="avatar" id="sidebar-avatar">EM</div>
                     <div class="who">
-                        Elon Musk
+                        <span id="sidebar-name">Elon Musk</span>
                         <span class="role">Verified Collector</span>
                     </div>
                 </div>
@@ -54,12 +51,12 @@
         </aside>
 
         <!-- Main Content Area -->
-        <main class="app-main" style="background:#000000; color:#ffffff;">
+        <main class="app-main">
             <!-- Topbar -->
             <div class="app-topbar">
                 <div>
-                    <h1 id="view-title" style="color:#ffffff;">Collector Overview</h1>
-                    <p id="view-subtitle" style="color:var(--tesla-muted);">Monitor active sourcing missions, battery PPI telemetry, and consignment vault items.</p>
+                    <h1 id="view-title">Collector Overview</h1>
+                    <p id="view-subtitle">Monitor active sourcing missions, battery PPI telemetry, and consignment vault items.</p>
                 </div>
                 <div class="flex items-center gap-4">
                     <a href="request.html" class="btn-sm primary">+ New Sourcing Brief</a>
@@ -70,7 +67,7 @@
             <div id="view-overview" class="view active space-y-8">
                 <div class="dash-stats">
                     <div class="dash-stat">
-                        <div class="num">2</div>
+                        <div class="num" id="stat-briefs-count">0</div>
                         <div class="lbl">Active Sourcing Briefs</div>
                     </div>
                     <div class="dash-stat">
@@ -78,8 +75,8 @@
                         <div class="lbl">Consignment in Vault</div>
                     </div>
                     <div class="dash-stat">
-                        <div class="num red">$78,900</div>
-                        <div class="lbl">Escrow Balance Secured</div>
+                        <div class="num blue" id="stat-budget-total">$0</div>
+                        <div class="lbl">Total Brief Budget</div>
                     </div>
                     <div class="dash-stat">
                         <div class="num">Tier 1</div>
@@ -98,32 +95,13 @@
                                 <tr>
                                     <th>Ref ID</th>
                                     <th>Asset Specification</th>
-                                    <th>Division</th>
+                                    <th>Budget / Dest</th>
                                     <th>Status</th>
-                                    <th>Assigned Director</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="clickable" onclick="switchView('briefs')">
-                                    <td class="cell-id">TSLA-REQ-94821</td>
-                                    <td>
-                                        <div class="cell-main">Tesla Model S Plaid (Ultra Red)</div>
-                                        <div class="cell-sub">Tri-motor AWD with Cream interior</div>
-                                    </td>
-                                    <td>Personal Sourcing</td>
-                                    <td><span class="badge badge-sourcing">Battery PPI Active</span></td>
-                                    <td>Marcus Vance</td>
-                                </tr>
-                                <tr class="clickable" onclick="switchView('consignment')">
-                                    <td class="cell-id">TSLA-CON-38192</td>
-                                    <td>
-                                        <div class="cell-main">Tesla Model Y Performance</div>
-                                        <div class="cell-sub">Stealth Grey with 21" Überturbine</div>
-                                    </td>
-                                    <td>Consignment Vault</td>
-                                    <td><span class="badge badge-shipped">Syndicated / Live</span></td>
-                                    <td>Elena Rostova</td>
-                                </tr>
+                            <tbody id="overview-table-body">
+                                <!-- Populated via JS -->
                             </tbody>
                         </table>
                     </div>
@@ -148,14 +126,8 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="cell-id">TSLA-REQ-94821</td>
-                                    <td class="cell-main">Tesla Model S Plaid (Ultra Red)</td>
-                                    <td>$85,000</td>
-                                    <td><span class="badge badge-sourcing">PPI & Diagnostics</span></td>
-                                    <td><button onclick="openDrawer('TSLA-REQ-94821')" class="btn-sm">View Dossier</button></td>
-                                </tr>
+                            <tbody id="briefs-table-body">
+                                <!-- Populated via JS -->
                             </tbody>
                         </table>
                     </div>
@@ -177,7 +149,7 @@
                                     <th>Vehicle Description</th>
                                     <th>Vault Location</th>
                                     <th>Syndication Status</th>
-                                    <th>Commission</th>
+                                    <th>Valuation</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -186,36 +158,10 @@
                                     <td class="cell-main">Tesla Model Y Performance</td>
                                     <td>Austin Vault #2</td>
                                     <td><span class="badge badge-shipped">Active Buyers Market</span></td>
-                                    <td>5%</td>
+                                    <td>$46,500</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- View 4: Messages -->
-            <div id="view-messages" class="view space-y-8">
-                <div class="panel">
-                    <div class="panel-head">
-                        <h3>Direct Concierge Chat</h3>
-                        <span class="text-xs text-tesla-muted">Assigned Director: Marcus Vance</span>
-                    </div>
-                    <div class="panel-body pt-6">
-                        <div class="thread" style="display:flex; flex-direction:column; gap:14px; margin-bottom:20px;">
-                            <div class="msg" style="background:#16191c; padding:12px 16px; border-radius:8px; max-width:78%;">
-                                Hello Elon. We have completed the BMS diagnostic check on the Model S Plaid in Austin. State of health is 99.4%.
-                                <div class="msg-meta" style="font-family:var(--font-mono); font-size:10px; color:var(--tesla-muted); margin-top:6px;">Today, 10:42 AM</div>
-                            </div>
-                            <div class="msg" style="background:var(--tesla-red); color:#ffffff; padding:12px 16px; border-radius:8px; max-width:78%; align-self:flex-end;">
-                                Perfect. Please proceed with account migration and enclosed transport dispatch.
-                                <div class="msg-meta" style="font-family:var(--font-mono); font-size:10px; color:rgba(255,255,255,0.7); margin-top:6px;">Today, 11:15 AM</div>
-                            </div>
-                        </div>
-                        <div class="compose-row" style="display:flex; gap:10px;">
-                            <input type="text" placeholder="Type a secure message to your concierge..." style="background:#16191c; border:1px solid var(--tesla-border); border-radius:8px; padding:12px 14px; font-size:14px; color:#ffffff; flex:1;">
-                            <button onclick="alert('Message transmitted to Marcus Vance.')" class="btn-sm primary">Send</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -228,17 +174,58 @@
         <button onclick="closeDrawer()" class="drawer-close">← Close Dossier</button>
         <div id="drawer-content" class="space-y-6">
             <h2 id="drawer-id" class="text-2xl font-bold">TSLA-REQ-94821</h2>
-            <p class="text-sm text-tesla-muted">Detailed proxy sourcing dossier and battery health telemetry.</p>
-            <div class="bg-black/40 p-4 rounded-xl space-y-3 text-sm border border-white/5">
-                <div class="flex justify-between"><span class="text-tesla-muted">Asset</span><span class="font-semibold">Tesla Model S Plaid</span></div>
-                <div class="flex justify-between"><span class="text-tesla-muted">Retainer Paid</span><span class="font-semibold">$2,000</span></div>
-                <div class="flex justify-between"><span class="text-tesla-muted">BMS Diagnostics</span><span class="font-semibold text-emerald-400">99.4% SOH Verified</span></div>
+            <p class="text-sm text-gray-500">Detailed proxy sourcing dossier and battery health telemetry.</p>
+            <div class="bg-gray-50 p-4 rounded-xl space-y-3 text-sm border border-gray-200">
+                <div class="flex justify-between"><span class="text-gray-500">Asset</span><span class="font-semibold" id="drawer-asset">Tesla Model S Plaid</span></div>
+                <div class="flex justify-between"><span class="text-gray-500">Budget</span><span class="font-semibold" id="drawer-budget">$85,000</span></div>
+                <div class="flex justify-between"><span class="text-gray-500">Destination</span><span class="font-semibold" id="drawer-dest">Austin, TX</span></div>
+                <div class="flex justify-between"><span class="text-gray-500">BMS Diagnostics</span><span class="font-semibold text-green-600">99.4% SOH Verified</span></div>
             </div>
-            <button onclick="alert('Authentication dossier downloaded.')" class="w-full py-3 bg-white text-black font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-[#e82127] hover:text-white transition">Download Battery Dossier (.PDF)</button>
+            <button onclick="alert('Authentication dossier downloaded.')" class="w-full py-3 bg-[#171a20] text-white font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-black transition">Download Battery Dossier (.PDF)</button>
         </div>
     </div>
 
+    <script src="farside.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            var list = farsideLoad();
+            document.getElementById('stat-briefs-count').innerText = list.length;
+            
+            var totalBudget = 0;
+            list.forEach(function(r){
+                var num = parseInt((r.budget || '0').replace(/[^0-9]/g, ''));
+                if(!isNaN(num)) totalBudget += num;
+            });
+            document.getElementById('stat-budget-total').innerText = '$' + totalBudget.toLocaleString();
+
+            var overviewHtml = '';
+            var briefsHtml = '';
+
+            list.forEach(function(b){
+                overviewHtml += `<tr class="clickable" onclick="switchView('briefs')">
+                    <td class="cell-id">${b.id}</td>
+                    <td>
+                        <div class="cell-main">${b.itemName}</div>
+                        <div class="cell-sub">${b.notes || b.email}</div>
+                    </td>
+                    <td>${b.budget} • ${b.destination}</td>
+                    <td><span class="badge badge-sourcing">${b.status}</span></td>
+                    <td><button onclick="openDrawer('${b.id}'); event.stopPropagation();" class="btn-sm">View</button></td>
+                </tr>`;
+
+                briefsHtml += `<tr>
+                    <td class="cell-id">${b.id}</td>
+                    <td class="cell-main">${b.itemName}</td>
+                    <td>${b.budget}</td>
+                    <td><span class="badge badge-sourcing">${b.status}</span></td>
+                    <td><button onclick="openDrawer('${b.id}')" class="btn-sm">View Dossier</button></td>
+                </tr>`;
+            });
+
+            document.getElementById('overview-table-body').innerHTML = overviewHtml || '<tr><td colspan="5" class="text-center py-6 text-gray-400">No active briefs</td></tr>';
+            document.getElementById('briefs-table-body').innerHTML = briefsHtml || '<tr><td colspan="5" class="text-center py-6 text-gray-400">No active briefs</td></tr>';
+        });
+
         function switchView(viewName) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.querySelectorAll('.side-nav button').forEach(b => b.classList.remove('active'));
@@ -250,8 +237,7 @@
             const titles = {
                 overview: ['Collector Overview', 'Monitor active sourcing missions, battery PPI telemetry, and consignment vault items.'],
                 briefs: ['Sourcing Briefs', 'Track ongoing proxy shopping briefs and acquisition milestones.'],
-                consignment: ['Active Consignments', 'Manage Tesla vehicles and energy units stored in secure vaults.'],
-                messages: ['Concierge Chat', 'Direct encrypted communication with your assigned acquisition director.']
+                consignment: ['Active Consignments', 'Manage Tesla vehicles and energy units stored in secure vaults.']
             };
             if(titles[viewName]) {
                 document.getElementById('view-title').innerText = titles[viewName][0];
@@ -260,6 +246,14 @@
         }
 
         function openDrawer(id) {
+            var list = farsideLoad();
+            var brief = list.find(function(b){ return b.id === id; });
+            if(brief) {
+                document.getElementById('drawer-id').innerText = brief.id;
+                document.getElementById('drawer-asset').innerText = brief.itemName;
+                document.getElementById('drawer-budget').innerText = brief.budget;
+                document.getElementById('drawer-dest').innerText = brief.destination;
+            }
             document.getElementById('drawer-overlay').classList.add('show');
             document.getElementById('drawer').classList.add('show');
         }
@@ -269,6 +263,5 @@
             document.getElementById('drawer').classList.remove('show');
         }
     </script>
-    <script src="i18n.js"></script>
 </body>
 </html>

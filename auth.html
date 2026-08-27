@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Access | Tesla Consignment</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col justify-between bg-[var(--tesla-black)] text-white">
+
+    <!-- Top Minimal Bar -->
+    <header class="w-full px-8 py-6 flex items-center justify-between border-b border-white/5">
+        <a href="index.html" class="flex items-center gap-3">
+            <svg class="w-24 h-4 text-white fill-current" viewBox="0 0 342 35" xmlns="http://www.w3.org/2000/svg"><path d="M0 .1a9.7 9.7 0 107 7 11 11 0 00-7-7zm25.8 2.3c2.4 0 4.3.4 5.8 1.3 1.5.9 2.6 2.2 3.3 3.9.7 1.7 1 3.7 1 6.1s-.3 4.4-1 6.1c-.7 1.7-1.8 3-3.3 3.9-1.5.9-3.4 1.3-5.8 1.3s-4.3-.4-5.8-1.3c-1.5-.9-2.6-2.2-3.3-3.9-.7-1.7-1-3.7-1-6.1s.3-4.4 1-6.1c.7-1.7 1.8-3 3.3-3.9 1.5-.9 3.4-1.3 5.8-1.3zm0 2.2c-1.8 0-3.3.3-4.4 1-1.1.7-1.9 1.6-2.4 2.9-.5 1.3-.8 2.9-.8 4.7s.3 3.4.8 4.7c.5 1.3 1.3 2.2 2.4 2.9 1.1.7 2.6 1 4.4 1s3.3-.3 4.4-1c1.1-.7 1.9-1.6 2.4-2.9.5-1.3.8-2.9.8-4.7s-.3-3.4-.8-4.7c-.5-1.3-1.3-2.2-2.4-2.9-1.1-.7-2.6-1-4.4-1zm37.2-2.7h19.5v2.2H83v18.7h-2.3V4.6H63v-2.2zm31.7 0h2.3v20.9h-2.3V2.4zm34.2 0h2.3l11.4 20.9h-2.5l-3.5-6.6H127l-3.5 6.6h-2.5l11.4-20.9zm-4.3 12.1h8.2l-4.1-7.8-4.1 7.8zm41.2-12.1h19.5v2.2h-17.2v7.1h16.2v2.2h-16.2v7.2h17.2v2.2h-19.5V2.4zm35.8 0h2.3v18.7h15v2.2h-17.3V2.4zm35.2 0h2.3v18.7h15v2.2h-17.3V2.4z"/></svg>
+            <span class="text-[10px] uppercase tracking-widest text-[#9ca3af] border-l border-white/10 pl-3">Auth Gateway</span>
+        </a>
+        <div class="text-xs text-[#9ca3af] flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>TLS 1.3 Encrypted Session</span>
+        </div>
+    </header>
+
+    <!-- Main Auth Container -->
+    <main class="w-full max-w-md mx-auto px-4 py-8 my-auto">
+        <div class="bg-[var(--tesla-card)] border border-white/10 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-[#e82127]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold tracking-tight text-white mb-2" id="formTitle">Sign In to Tesla</h1>
+                <p class="text-xs text-[#9ca3af]" id="formSubtitle">Access your sourcing briefs, consignment vault, and escrow telemetry.</p>
+            </div>
+
+            <!-- Segmented Control Tabs -->
+            <div class="grid grid-cols-2 bg-black/50 p-1 rounded-xl border border-white/5 text-xs font-medium mb-6">
+                <button onclick="switchMode('signin')" id="tabSignin" class="py-2.5 rounded-lg bg-[#e82127] text-white font-bold transition shadow-sm cursor-pointer">Sign In</button>
+                <button onclick="switchMode('signup')" id="tabSignup" class="py-2.5 rounded-lg text-[#9ca3af] transition hover:text-white cursor-pointer">Create Account</button>
+            </div>
+
+            <!-- Form -->
+            <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                <div id="nameField" class="hidden space-y-1.5">
+                    <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Elon Musk" class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#e82127] transition">
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">Email Address</label>
+                    <input type="email" id="email" required placeholder="name@tesla.com" class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#e82127] transition">
+                </div>
+
+                <div class="space-y-1.5">
+                    <div class="flex justify-between items-center">
+                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">Password</label>
+                        <a href="#" class="text-[11px] text-[#e82127] hover:underline">Forgot?</a>
+                    </div>
+                    <input type="password" id="password" required placeholder="••••••••••••" class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#e82127] transition">
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full py-3.5 rounded-xl bg-[#e82127] text-white font-bold text-sm hover:bg-[#ff3338] transition shadow-lg shadow-[#e82127]/20 mt-4 flex items-center justify-center gap-2 cursor-pointer">
+                    <span>Sign In</span>
+                    <span>→</span>
+                </button>
+            </form>
+
+            <div class="mt-6 pt-6 border-t border-white/10 text-center">
+                <a href="index.html" class="text-xs text-[#9ca3af] hover:text-white transition flex items-center justify-center gap-1.5">
+                    <span>← Return to Tesla Home</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 text-center text-xs text-[#9ca3af] border-t border-white/5">
+        <p>Tesla Tesla Secure Gateway © 2026</p>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-[var(--tesla-card)] border border-[#e82127]/40 px-5 py-3.5 rounded-2xl shadow-2xl transform translate-y-32 opacity-0 transition-all duration-300 flex items-center gap-3">
+        <div class="w-2.5 h-2.5 rounded-full bg-[#e82127] animate-ping"></div>
+        <div>
+            <h4 class="font-semibold text-xs text-white" id="toastTitle">Authenticated</h4>
+            <p class="text-[11px] text-[#9ca3af]" id="toastDesc">Redirecting secure session...</p>
+        </div>
+    </div>
+
+    <script>
+        let isSignup = false;
+
+        function switchMode(mode) {
+            isSignup = (mode === 'signup');
+            const tabSignin = document.getElementById('tabSignin');
+            const tabSignup = document.getElementById('tabSignup');
+            const formTitle = document.getElementById('formTitle');
+            const formSubtitle = document.getElementById('formSubtitle');
+            const nameField = document.getElementById('nameField');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if(isSignup) {
+                tabSignup.className = 'py-2.5 rounded-lg bg-[#e82127] text-white font-bold transition shadow-sm cursor-pointer';
+                tabSignin.className = 'py-2.5 rounded-lg text-[#9ca3af] transition hover:text-white cursor-pointer';
+                formTitle.innerText = 'Create Tesla Account';
+                formSubtitle.innerText = 'Register for global proxy shopping briefs and white-glove consignment.';
+                nameField.classList.remove('hidden');
+                submitBtn.innerHTML = '<span>Create Account</span><span>→</span>';
+            } else {
+                tabSignin.className = 'py-2.5 rounded-lg bg-[#e82127] text-white font-bold transition shadow-sm cursor-pointer';
+                tabSignup.className = 'py-2.5 rounded-lg text-[#9ca3af] transition hover:text-white cursor-pointer';
+                formTitle.innerText = 'Sign In to Tesla';
+                formSubtitle.innerText = 'Access your sourcing briefs, consignment vault, and escrow telemetry.';
+                nameField.classList.add('hidden');
+                submitBtn.innerHTML = '<span>Sign In</span><span>→</span>';
+            }
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            const emailField = document.getElementById('email').value;
+
+            // Simple router demonstration: if email includes 'admin' or 'owner', go to admin dashboard, else dashboard
+            showToast("Session Verified", `Securing token for ${emailField}... Redirecting.`);
+
+            setTimeout(() => {
+                if(emailField.includes('admin') || emailField.includes('owner') || emailField.includes('director')) {
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    window.location.href = 'dashboard.html';
+                }
+            }, 1200);
+        }
+
+        function showToast(title, desc) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastDesc').innerText = desc;
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }, 3500);
+        }
+    </script>
+    <script src="i18n.js"></script>
+</body>
+</html>

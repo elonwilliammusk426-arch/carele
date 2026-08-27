@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurator | Tesla Ecosystem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tesla: { dark: '#0e1111', card: '#16191c', red: '#e82127', redHover: '#ff3338', muted: '#9ca3af' }
+                    },
+                    fontFamily: { sans: ['"Inter"', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style> body { background-color: #000000; color: #ffffff; } </style>
+</head>
+<body class="font-sans antialiased selection:bg-tesla-red selection:text-white">
+
+    <!-- Global Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <svg class="w-24 h-5 text-white fill-current" viewBox="0 0 342 35" xmlns="http://www.w3.org/2000/svg"><path d="M0 .1a9.7 9.7 0 107 7 11 11 0 00-7-7zm25.8 2.3c2.4 0 4.3.4 5.8 1.3 1.5.9 2.6 2.2 3.3 3.9.7 1.7 1 3.7 1 6.1s-.3 4.4-1 6.1c-.7 1.7-1.8 3-3.3 3.9-1.5.9-3.4 1.3-5.8 1.3s-4.3-.4-5.8-1.3c-1.5-.9-2.6-2.2-3.3-3.9-.7-1.7-1-3.7-1-6.1s.3-4.4 1-6.1c.7-1.7 1.8-3 3.3-3.9 1.5-.9 3.4-1.3 5.8-1.3zm0 2.2c-1.8 0-3.3.3-4.4 1-1.1.7-1.9 1.6-2.4 2.9-.5 1.3-.8 2.9-.8 4.7s.3 3.4.8 4.7c.5 1.3 1.3 2.2 2.4 2.9 1.1.7 2.6 1 4.4 1s3.3-.3 4.4-1c1.1-.7 1.9-1.6 2.4-2.9.5-1.3.8-2.9.8-4.7s-.3-3.4-.8-4.7c-.5-1.3-1.3-2.2-2.4-2.9-1.1-.7-2.6-1-4.4-1zm37.2-2.7h19.5v2.2H83v18.7h-2.3V4.6H63v-2.2zm31.7 0h2.3v20.9h-2.3V2.4zm34.2 0h2.3l11.4 20.9h-2.5l-3.5-6.6H127l-3.5 6.6h-2.5l11.4-20.9zm-4.3 12.1h8.2l-4.1-7.8-4.1 7.8zm41.2-12.1h19.5v2.2h-17.2v7.1h16.2v2.2h-16.2v7.2h17.2v2.2h-19.5V2.4zm35.8 0h2.3v18.7h15v2.2h-17.3V2.4zm35.2 0h2.3v18.7h15v2.2h-17.3V2.4z"/></svg>
+                <span class="text-xs uppercase tracking-widest text-tesla-red font-semibold pl-2 border-l border-white/20">Configurator</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+                <a href="index.html" class="hover:text-white transition">Overview</a>
+                <a href="configurator.html" class="text-white">Configurator</a>
+                <a href="calculator.html" class="hover:text-white transition">Energy Calculator</a>
+                <a href="ai-fleet.html" class="hover:text-white transition">AI & FSD</a>
+                <a href="dashboard.html" class="hover:text-white transition">Portal</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Configurator Layout -->
+    <main class="pt-24 pb-20 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Left 2 Cols: Options & Selections -->
+        <div class="lg:col-span-2 space-y-10">
+            <div>
+                <span class="text-xs uppercase tracking-widest text-tesla-red font-semibold">Interactive Studio</span>
+                <h1 class="text-3xl font-bold mt-2">Design Your Tesla</h1>
+                <p class="text-tesla-muted text-sm mt-1">Select your model, paint, interior, and software upgrades with instant price updates.</p>
+            </div>
+
+            <!-- Step 1: Model Selection -->
+            <div class="bg-tesla-card border border-white/10 rounded-3xl p-6 space-y-4">
+                <h2 class="text-lg font-bold">1. Select Model</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <button onclick="setBasePrice('Model 3', 38990)" class="model-btn bg-black/60 border-2 border-tesla-red rounded-2xl p-4 text-left transition hover:border-tesla-red">
+                        <div class="font-bold">Model 3</div>
+                        <div class="text-xs text-tesla-muted mt-1">From $38,990</div>
+                    </button>
+                    <button onclick="setBasePrice('Model Y', 44990)" class="model-btn bg-black/60 border border-white/10 rounded-2xl p-4 text-left transition hover:border-tesla-red">
+                        <div class="font-bold">Model Y</div>
+                        <div class="text-xs text-tesla-muted mt-1">From $44,990</div>
+                    </button>
+                    <button onclick="setBasePrice('Cybertruck', 79990)" class="model-btn bg-black/60 border border-white/10 rounded-2xl p-4 text-left transition hover:border-tesla-red">
+                        <div class="font-bold">Cybertruck</div>
+                        <div class="text-xs text-tesla-muted mt-1">From $79,990</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Paint Color -->
+            <div class="bg-tesla-card border border-white/10 rounded-3xl p-6 space-y-4">
+                <h2 class="text-lg font-bold">2. Paint Options</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <button onclick="setPaint('Pearl White Multi-Coat', 0)" class="paint-btn bg-black/60 border-2 border-tesla-red rounded-2xl p-4 text-left transition">
+                        <div class="w-6 h-6 rounded-full bg-white mb-2 border border-white/20"></div>
+                        <div class="font-medium text-sm">Pearl White</div>
+                        <div class="text-xs text-tesla-muted">Included</div>
+                    </button>
+                    <button onclick="setPaint('Solid Black', 1500)" class="paint-btn bg-black/60 border border-white/10 rounded-2xl p-4 text-left transition">
+                        <div class="w-6 h-6 rounded-full bg-zinc-900 mb-2 border border-white/20"></div>
+                        <div class="font-medium text-sm">Solid Black</div>
+                        <div class="text-xs text-tesla-muted">+$1,500</div>
+                    </button>
+                    <button onclick="setPaint('Ultra Red', 2000)" class="paint-btn bg-black/60 border border-white/10 rounded-2xl p-4 text-left transition">
+                        <div class="w-6 h-6 rounded-full bg-red-600 mb-2 border border-white/20"></div>
+                        <div class="font-medium text-sm">Ultra Red</div>
+                        <div class="text-xs text-tesla-muted">+$2,000</div>
+                    </button>
+                    <button onclick="setPaint('Stealth Grey', 2000)" class="paint-btn bg-black/60 border border-white/10 rounded-2xl p-4 text-left transition">
+                        <div class="w-6 h-6 rounded-full bg-zinc-600 mb-2 border border-white/20"></div>
+                        <div class="font-medium text-sm">Stealth Grey</div>
+                        <div class="text-xs text-tesla-muted">+$2,000</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Add-ons & Autonomy -->
+            <div class="bg-tesla-card border border-white/10 rounded-3xl p-6 space-y-4">
+                <h2 class="text-lg font-bold">3. Autonomy & Upgrades</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center justify-between p-4 bg-black/40 rounded-2xl border border-white/5 cursor-pointer hover:border-white/20 transition">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" id="fsdCheck" onchange="updateTotal()" class="w-5 h-5 accent-tesla-red rounded">
+                            <div>
+                                <div class="font-medium text-sm">Full Self-Driving Capability (Supervised)</div>
+                                <div class="text-xs text-tesla-muted">Autosteer on city streets, traffic light control.</div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-semibold">+$8,000</span>
+                    </label>
+                    <label class="flex items-center justify-between p-4 bg-black/40 rounded-2xl border border-white/5 cursor-pointer hover:border-white/20 transition">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" id="powerwallCheck" onchange="updateTotal()" class="w-5 h-5 accent-tesla-red rounded">
+                            <div>
+                                <div class="font-medium text-sm">Powerwall 3 Home Battery Bundle</div>
+                                <div class="text-xs text-tesla-muted">Whole-home backup & solar energy integration.</div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-semibold">+$11,500</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Col: Live Summary Card -->
+        <div class="lg:col-span-1">
+            <div class="bg-tesla-card border border-white/10 rounded-3xl p-6 sticky top-28 space-y-6 shadow-2xl">
+                <h2 class="text-xl font-bold border-b border-white/10 pb-4">Order Summary</h2>
+                
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                        <span id="summaryModel" class="text-tesla-muted">Model 3</span>
+                        <span id="summaryModelPrice" class="font-medium">$38,990</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span id="summaryPaint" class="text-tesla-muted">Pearl White Multi-Coat</span>
+                        <span id="summaryPaintPrice" class="font-medium">$0</span>
+                    </div>
+                    <div id="summaryFsdRow" class="flex justify-between hidden">
+                        <span class="text-tesla-muted">Full Self-Driving</span>
+                        <span class="font-medium">+$8,000</span>
+                    </div>
+                    <div id="summaryPwRow" class="flex justify-between hidden">
+                        <span class="text-tesla-muted">Powerwall 3 Bundle</span>
+                        <span class="font-medium">+$11,500</span>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-white/10">
+                    <div class="flex justify-between items-baseline mb-6">
+                        <span class="text-sm font-semibold">Total Purchase Price</span>
+                        <span id="totalPrice" class="text-2xl font-bold text-white">$38,990</span>
+                    </div>
+
+                    <button onclick="submitOrder()" class="w-full py-4 rounded-xl bg-tesla-red text-white font-bold hover:bg-tesla-redHover transition shadow-xl shadow-tesla-red/25">
+                        Reserve with $250 Deposit
+                    </button>
+                    <p class="text-[10px] text-tesla-muted text-center mt-3">Estimated Delivery: 2-3 Weeks. Fully refundable.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-tesla-card border border-tesla-red/50 px-6 py-4 rounded-2xl shadow-2xl transform translate-y-32 opacity-0 transition-all duration-300 flex items-center gap-4">
+        <div class="w-3 h-3 rounded-full bg-tesla-red animate-ping"></div>
+        <div>
+            <h4 class="font-bold text-sm text-white" id="toastTitle">Configuration Saved</h4>
+            <p class="text-xs text-tesla-muted" id="toastDesc">Redirecting to checkout...</p>
+        </div>
+    </div>
+
+    <script>
+        let currentModel = 'Model 3';
+        let modelPrice = 38990;
+        let paintName = 'Pearl White Multi-Coat';
+        let paintPrice = 0;
+
+        function setBasePrice(model, price) {
+            currentModel = model;
+            modelPrice = price;
+            document.getElementById('summaryModel').innerText = model;
+            document.getElementById('summaryModelPrice').innerText = '$' + price.toLocaleString();
+            
+            // Highlight active button
+            document.querySelectorAll('.model-btn').forEach(btn => {
+                btn.classList.remove('border-tesla-red', 'border-2');
+                btn.classList.add('border-white/10');
+            });
+            event.currentTarget.classList.add('border-tesla-red', 'border-2');
+            updateTotal();
+        }
+
+        function setPaint(name, price) {
+            paintName = name;
+            paintPrice = price;
+            document.getElementById('summaryPaint').innerText = name;
+            document.getElementById('summaryPaintPrice').innerText = price === 0 ? '$0' : '+$' + price.toLocaleString();
+
+            document.querySelectorAll('.paint-btn').forEach(btn => {
+                btn.classList.remove('border-tesla-red', 'border-2');
+                btn.classList.add('border-white/10');
+            });
+            event.currentTarget.classList.add('border-tesla-red', 'border-2');
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let total = modelPrice + paintPrice;
+            const fsdChecked = document.getElementById('fsdCheck').checked;
+            const pwChecked = document.getElementById('powerwallCheck').checked;
+
+            const fsdRow = document.getElementById('summaryFsdRow');
+            const pwRow = document.getElementById('summaryPwRow');
+
+            if(fsdChecked) {
+                total += 8000;
+                fsdRow.classList.remove('hidden');
+            } else {
+                fsdRow.classList.add('hidden');
+            }
+
+            if(pwChecked) {
+                total += 11500;
+                pwRow.classList.remove('hidden');
+            } else {
+                pwRow.classList.add('hidden');
+            }
+
+            document.getElementById('totalPrice').innerText = '$' + total.toLocaleString();
+        }
+
+        function submitOrder() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 2000);
+        }
+    </script>
+    <script src="i18n.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Source or Consign | Tesla</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo flex items-center gap-3">
+                <svg viewBox="0 0 342 35" xmlns="http://www.w3.org/2000/svg"><path d="M0 .1a9.7 9.7 0 107 7 11 11 0 00-7-7zm25.8 2.3c2.4 0 4.3.4 5.8 1.3 1.5.9 2.6 2.2 3.3 3.9.7 1.7 1 3.7 1 6.1s-.3 4.4-1 6.1c-.7 1.7-1.8 3-3.3 3.9-1.5.9-3.4 1.3-5.8 1.3s-4.3-.4-5.8-1.3c-1.5-.9-2.6-2.2-3.3-3.9-.7-1.7-1-3.7-1-6.1s.3-4.4 1-6.1c.7-1.7 1.8-3 3.3-3.9 1.5-.9 3.4-1.3 5.8-1.3zm0 2.2c-1.8 0-3.3.3-4.4 1-1.1.7-1.9 1.6-2.4 2.9-.5 1.3-.8 2.9-.8 4.7s.3 3.4.8 4.7c.5 1.3 1.3 2.2 2.4 2.9 1.1.7 2.6 1 4.4 1s3.3-.3 4.4-1c1.1-.7 1.9-1.6 2.4-2.9.5-1.3.8-2.9.8-4.7s-.3-3.4-.8-4.7c-.5-1.3-1.3-2.2-2.4-2.9-1.1-.7-2.6-1-4.4-1zm37.2-2.7h19.5v2.2H83v18.7h-2.3V4.6H63v-2.2zm31.7 0h2.3v20.9h-2.3V2.4zm34.2 0h2.3l11.4 20.9h-2.5l-3.5-6.6H127l-3.5 6.6h-2.5l11.4-20.9zm-4.3 12.1h8.2l-4.1-7.8-4.1 7.8zm41.2-12.1h19.5v2.2h-17.2v7.1h16.2v2.2h-16.2v7.2h17.2v2.2h-19.5V2.4zm35.8 0h2.3v18.7h15v2.2h-17.3V2.4zm35.2 0h2.3v18.7h15v2.2h-17.3V2.4z"/></svg>
+                <span class="logo-tag">Tesla</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="how-it-works.html">How It Works</a>
+                <a href="categories.html">Showcase</a>
+                <a href="request.html" class="active">Source / Consign</a>
+                <a href="track.html">Track Order</a>
+                <a href="about.html">About & Contact</a>
+                <a href="dashboard.html">Client Portal</a>
+            </div>
+            <div class="nav-actions flex items-center gap-4">
+                <a href="request.html" class="nav-cta hidden sm:inline-block">Client Brief</a>
+                <button class="nav-toggle" aria-label="Toggle Navigation">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header & Form Container -->
+    <main class="pt-36 pb-32 px-6 max-w-4xl mx-auto space-y-12">
+        <div class="text-center space-y-4">
+            <span class="inline-block py-1.5 px-6 rounded-full bg-[#e82127]/10 border border-[#e82127]/30 text-[#e82127] text-xs font-semibold tracking-[0.25em] uppercase">
+                Private Acquisition Desk
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white">Source an Allocation or Consign Your Tesla</h1>
+            <p class="text-base text-[#9ca3af] max-w-xl mx-auto font-light">
+                Submit your exact specifications or vehicle details. Our acquisition director will review your brief within 4 hours.
+            </p>
+        </div>
+
+        <form id="request-form" class="bg-[#16191c] border border-white/10 p-8 md:p-14 rounded-3xl shadow-2xl space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold uppercase tracking-widest text-[#9ca3af]">Service Type</label>
+                    <select class="w-full bg-[#0e1111] border border-white/10 rounded-2xl px-5 py-4 text-white text-sm focus:outline-none focus:border-[#e82127] transition">
+                        <option>Personal Sourcing / Proxy Hunt</option>
+                        <option>White-Glove Vehicle Consignment</option>
+                        <option>Solar & Powerwall Bundle Consignment</option>
+                    </select>
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold uppercase tracking-widest text-[#9ca3af]">Vehicle Model / Asset Type</label>
+                    <input type="text" required placeholder="e.g. Model S Plaid or Cybertruck" class="w-full bg-[#0e1111] border border-white/10 rounded-2xl px-5 py-4 text-white text-sm focus:outline-none focus:border-[#e82127] transition">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold uppercase tracking-widest text-[#9ca3af]">Your Full Name</label>
+                    <input type="text" required placeholder="Elon Musk" class="w-full bg-[#0e1111] border border-white/10 rounded-2xl px-5 py-4 text-white text-sm focus:outline-none focus:border-[#e82127] transition">
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold uppercase tracking-widest text-[#9ca3af]">Direct Phone / Secure Email</label>
+                    <input type="text" required placeholder="elon@tesla.com / +1 (555) 019-2834" class="w-full bg-[#0e1111] border border-white/10 rounded-2xl px-5 py-4 text-white text-sm focus:outline-none focus:border-[#e82127] transition">
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-xs font-bold uppercase tracking-widest text-[#9ca3af]">Specific Requirements, Mileage or Battery Health Notes</label>
+                <textarea rows="4" placeholder="Specify paint color, interior trim, FSD status, odometer mileage, or vehicle identification number (VIN) if consigning..." class="w-full bg-[#0e1111] border border-white/10 rounded-2xl px-5 py-4 text-white text-sm focus:outline-none focus:border-[#e82127] transition"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-5 rounded-2xl bg-[#e82127] text-white font-bold text-xs uppercase tracking-[0.2em] hover:bg-[#ff3338] transition shadow-xl shadow-[#e82127]/25 cursor-pointer">
+                Dispatch Acquisition Brief
+            </button>
+        </form>
+
+        <div id="confirm-panel" class="confirm-panel">
+            <h3 class="text-2xl font-bold text-white mb-2">Acquisition Brief Dispatched Successfully</h3>
+            <p class="text-sm text-[#9ca3af] mb-4">Your reference tracking ID is <span id="confirm-id" class="font-mono text-[#e82127] font-bold"></span>. Our team will contact you shortly.</p>
+            <a href="dashboard.html" class="inline-block px-6 py-3 bg-[#e82127] text-white font-bold text-xs uppercase tracking-widest rounded-xl">View in Client Portal</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0e1111] border-t border-white/10 py-16 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-xs text-[#9ca3af]">
+            <div class="flex items-center gap-4">
+                <svg class="w-24 h-4 text-white fill-current" viewBox="0 0 342 35" xmlns="http://www.w3.org/2000/svg"><path d="M0 .1a9.7 9.7 0 107 7 11 11 0 00-7-7zm25.8 2.3c2.4 0 4.3.4 5.8 1.3 1.5.9 2.6 2.2 3.3 3.9.7 1.7 1 3.7 1 6.1s-.3 4.4-1 6.1c-.7 1.7-1.8 3-3.3 3.9-1.5.9-3.4 1.3-5.8 1.3s-4.3-.4-5.8-1.3c-1.5-.9-2.6-2.2-3.3-3.9-.7-1.7-1-3.7-1-6.1s.3-4.4 1-6.1c.7-1.7 1.8-3 3.3-3.9 1.5-.9 3.4-1.3 5.8-1.3zm0 2.2c-1.8 0-3.3.3-4.4 1-1.1.7-1.9 1.6-2.4 2.9-.5 1.3-.8 2.9-.8 4.7s.3 3.4.8 4.7c.5 1.3 1.3 2.2 2.4 2.9 1.1.7 2.6 1 4.4 1s3.3-.3 4.4-1c1.1-.7 1.9-1.6 2.4-2.9.5-1.3.8-2.9.8-4.7s-.3-3.4-.8-4.7c-.5-1.3-1.3-2.2-2.4-2.9-1.1-.7-2.6-1-4.4-1zm37.2-2.7h19.5v2.2H83v18.7h-2.3V4.6H63v-2.2zm31.7 0h2.3v20.9h-2.3V2.4zm34.2 0h2.3l11.4 20.9h-2.5l-3.5-6.6H127l-3.5 6.6h-2.5l11.4-20.9zm-4.3 12.1h8.2l-4.1-7.8-4.1 7.8zm41.2-12.1h19.5v2.2h-17.2v7.1h16.2v2.2h-16.2v7.2h17.2v2.2h-19.5V2.4zm35.8 0h2.3v18.7h15v2.2h-17.3V2.4zm35.2 0h2.3v18.7h15v2.2h-17.3V2.4z"/></svg>
+                <span>Tesla © 2026</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-8 font-semibold uppercase tracking-wider">
+                <a href="index.html" class="hover:text-white transition">Home</a>
+                <a href="how-it-works.html" class="hover:text-white transition">How It Works</a>
+                <a href="categories.html" class="hover:text-white transition">Showcase</a>
+                <a href="request.html" class="hover:text-white transition">Source / Consign</a>
+                <a href="track.html" class="hover:text-white transition">Track Order</a>
+                <a href="about.html" class="hover:text-white transition">About & Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="i18n.js"></script>
+</body>
+</html>

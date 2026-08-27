@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI & FSD Telemetry | Tesla Ecosystem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tesla: { dark: '#0e1111', card: '#16191c', red: '#e82127', redHover: '#ff3338', muted: '#9ca3af' }
+                    },
+                    fontFamily: { sans: ['"Inter"', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style> body { background-color: #000000; color: #ffffff; } </style>
+</head>
+<body class="font-sans antialiased selection:bg-tesla-red selection:text-white">
+
+    <!-- Global Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <svg class="w-24 h-5 text-white fill-current" viewBox="0 0 342 35" xmlns="http://www.w3.org/2000/svg"><path d="M0 .1a9.7 9.7 0 107 7 11 11 0 00-7-7zm25.8 2.3c2.4 0 4.3.4 5.8 1.3 1.5.9 2.6 2.2 3.3 3.9.7 1.7 1 3.7 1 6.1s-.3 4.4-1 6.1c-.7 1.7-1.8 3-3.3 3.9-1.5.9-3.4 1.3-5.8 1.3s-4.3-.4-5.8-1.3c-1.5-.9-2.6-2.2-3.3-3.9-.7-1.7-1-3.7-1-6.1s.3-4.4 1-6.1c.7-1.7 1.8-3 3.3-3.9 1.5-.9 3.4-1.3 5.8-1.3zm0 2.2c-1.8 0-3.3.3-4.4 1-1.1.7-1.9 1.6-2.4 2.9-.5 1.3-.8 2.9-.8 4.7s.3 3.4.8 4.7c.5 1.3 1.3 2.2 2.4 2.9 1.1.7 2.6 1 4.4 1s3.3-.3 4.4-1c1.1-.7 1.9-1.6 2.4-2.9.5-1.3.8-2.9.8-4.7s-.3-3.4-.8-4.7c-.5-1.3-1.3-2.2-2.4-2.9-1.1-.7-2.6-1-4.4-1zm37.2-2.7h19.5v2.2H83v18.7h-2.3V4.6H63v-2.2zm31.7 0h2.3v20.9h-2.3V2.4zm34.2 0h2.3l11.4 20.9h-2.5l-3.5-6.6H127l-3.5 6.6h-2.5l11.4-20.9zm-4.3 12.1h8.2l-4.1-7.8-4.1 7.8zm41.2-12.1h19.5v2.2h-17.2v7.1h16.2v2.2h-16.2v7.2h17.2v2.2h-19.5V2.4zm35.8 0h2.3v18.7h15v2.2h-17.3V2.4zm35.2 0h2.3v18.7h15v2.2h-17.3V2.4z"/></svg>
+                <span class="text-xs uppercase tracking-widest text-tesla-red font-semibold pl-2 border-l border-white/20">AI & FSD Telemetry</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+                <a href="index.html" class="hover:text-white transition">Overview</a>
+                <a href="configurator.html" class="hover:text-white transition">Configurator</a>
+                <a href="calculator.html" class="hover:text-white transition">Energy Calculator</a>
+                <a href="ai-fleet.html" class="text-white">AI & FSD</a>
+                <a href="dashboard.html" class="hover:text-white transition">Portal</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Telemetry Dashboard -->
+    <main class="pt-24 pb-20 px-6 max-w-7xl mx-auto space-y-8">
+        <div>
+            <span class="text-xs uppercase tracking-widest text-tesla-red font-semibold">Neural Networks & Supercomputing</span>
+            <h1 class="text-3xl md:text-4xl font-bold mt-2">Dojo & FSD Fleet Telemetry</h1>
+            <p class="text-tesla-muted text-sm mt-1">Real-time simulation metrics from the global Tesla autonomous vehicle fleet.</p>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-tesla-card border border-white/10 rounded-3xl p-6">
+                <div class="text-xs text-tesla-muted uppercase">Total FSD Miles</div>
+                <div class="text-3xl font-bold text-white mt-2">9.84 Billion</div>
+                <div class="text-xs text-tesla-red mt-2">+142M this week</div>
+            </div>
+            <div class="bg-tesla-card border border-white/10 rounded-3xl p-6">
+                <div class="text-xs text-tesla-muted uppercase">Dojo Cluster Output</div>
+                <div class="text-3xl font-bold text-white mt-2">1.85 Exaflops</div>
+                <div class="text-xs text-tesla-red mt-2">99.8% Efficiency</div>
+            </div>
+            <div class="bg-tesla-card border border-white/10 rounded-3xl p-6">
+                <div class="text-xs text-tesla-muted uppercase">Active Robotaxis</div>
+                <div class="text-3xl font-bold text-white mt-2">4,280 Units</div>
+                <div class="text-xs text-tesla-red mt-2">Austin & SF Pilot</div>
+            </div>
+            <div class="bg-tesla-card border border-white/10 rounded-3xl p-6">
+                <div class="text-xs text-tesla-muted uppercase">Safety Disengagement Ratio</div>
+                <div class="text-3xl font-bold text-white mt-2">1 per 840 mi</div>
+                <div class="text-xs text-tesla-red mt-2">v12.5 Neural Stack</div>
+            </div>
+        </div>
+
+        <!-- Interactive Neural Simulation & Toggles -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 bg-tesla-card border border-white/10 rounded-3xl p-8 space-y-6">
+                <h2 class="text-xl font-bold">Autonomous Drive Simulator Controls</h2>
+                <p class="text-tesla-muted text-sm">Toggle live neural network parameters and vector space visualization layers.</p>
+                
+                <div class="space-y-4">
+                    <label class="flex items-center justify-between p-4 bg-black/40 rounded-2xl border border-white/5 cursor-pointer">
+                        <div>
+                            <div class="font-medium text-sm">Vector Space Occupancy Network</div>
+                            <div class="text-xs text-tesla-muted">Real-time 3D voxel reconstruction of environment.</div>
+                        </div>
+                        <input type="checkbox" checked class="w-5 h-5 accent-tesla-red rounded">
+                    </label>
+                    <label class="flex items-center justify-between p-4 bg-black/40 rounded-2xl border border-white/5 cursor-pointer">
+                        <div>
+                            <div class="font-medium text-sm">End-to-End Neural Planner (v12)</div>
+                            <div class="text-xs text-tesla-muted">Net outputs direct steering, acceleration & braking.</div>
+                        </div>
+                        <input type="checkbox" checked class="w-5 h-5 accent-tesla-red rounded">
+                    </label>
+                    <label class="flex items-center justify-between p-4 bg-black/40 rounded-2xl border border-white/5 cursor-pointer">
+                        <div>
+                            <div class="font-medium text-sm">Optimus Humanoid Teleoperation Sync</div>
+                            <div class="text-xs text-tesla-muted">Factory automation feedback loop active.</div>
+                        </div>
+                        <input type="checkbox" class="w-5 h-5 accent-tesla-red rounded">
+                    </label>
+                </div>
+            </div>
+
+            <!-- Live Status Feed -->
+            <div class="bg-tesla-card border border-white/10 rounded-3xl p-8 space-y-6">
+                <h2 class="text-xl font-bold">System Log Feed</h2>
+                <div class="space-y-3 font-mono text-xs text-tesla-muted bg-black/60 p-4 rounded-2xl border border-white/5 h-64 overflow-y-auto">
+                    <p class="text-green-400">[04:42:10] DOJO_TRAINING_NODE #48 online</p>
+                    <p>[04:42:12] FSD_V12.5 inference latency: 4.2ms</p>
+                    <p class="text-tesla-red">[04:42:15] Fleet anomaly resolved via shadow mode</p>
+                    <p>[04:42:18] Solar VPP peak load balancing active</p>
+                    <p>[04:42:22] Neural weight synchronization complete</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="i18n.js"></script>
+</body>
+</html>

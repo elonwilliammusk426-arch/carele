@@ -6,7 +6,7 @@ import urllib.parse
 import os
 import random
 
-PORT = 8000
+PORT = int(os.environ.get('PORT', 8000))
 DB_FILE = 'tesla_platform.db'
 
 def init_db():
@@ -66,8 +66,7 @@ def init_db():
                 doors_locked INTEGER,
                 last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
 
-    c.execute("DROP TABLE IF EXISTS stock_watch")
-    c.execute('''CREATE TABLE stock_watch (
+    c.execute('''CREATE TABLE IF NOT EXISTS stock_watch (
                 vin TEXT PRIMARY KEY,
                 model TEXT,
                 trim TEXT,
@@ -90,14 +89,16 @@ def init_db():
         c.execute("INSERT INTO vehicle_telemetry VALUES ('TSLA_VIN_S_PLAID_01', 'Tesla Model S Plaid', 'Charging', 88, 365.4, 1, 90, 1, datetime('now'))")
         c.execute("INSERT INTO vehicle_telemetry VALUES ('TSLA_VIN_Y_PERF_02', 'Tesla Model Y Performance', 'Disconnected', 94, 290.1, 0, 80, 1, datetime('now'))")
 
-    sample_stock = [
-        ("5YJ3E1EB9NF194820", "Model 3", "Long Range AWD", 61900, 65900, 4000, "Austin, TX", "Stealth Grey", "Black", "Available"),
-        ("7SAXCBE5RPA821904", "Model Y", "Performance", 48490, 52490, 4000, "Fremont, CA", "Ultra Red", "White", "Available"),
-        ("5YJSA1E21NF992810", "Model S", "Plaid", 89900, 94900, 5000, "Berlin Atelier", "Deep Blue", "Cream", "Reserved"),
-        ("7SAYGDEE6PA109283", "Model X", "Plaid", 94900, 99900, 5000, "Shanghai Bureau", "Pearl White", "Black", "Available"),
-        ("3C63R3FL6RG918273", "Cybertruck", "Cyberbeast", 115000, 120000, 5000, "Austin Vault HQ", "Stainless Steel", "Black", "Available")
-    ]
-    c.executemany("INSERT OR IGNORE INTO stock_watch VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", sample_stock)
+    c.execute("SELECT COUNT(*) FROM stock_watch")
+    if c.fetchone()[0] == 0:
+        sample_stock = [
+            ("5YJ3E1EB9NF194820", "Model 3", "Long Range AWD", 61900, 65900, 4000, "Austin, TX", "Stealth Grey", "Black", "Available"),
+            ("7SAXCBE5RPA821904", "Model Y", "Performance", 48490, 52490, 4000, "Fremont, CA", "Ultra Red", "White", "Available"),
+            ("5YJSA1E21NF992810", "Model S", "Plaid", 89900, 94900, 5000, "Berlin Atelier", "Deep Blue", "Cream", "Reserved"),
+            ("7SAYGDEE6PA109283", "Model X", "Plaid", 94900, 99900, 5000, "Shanghai Bureau", "Pearl White", "Black", "Available"),
+            ("3C63R3FL6RG918273", "Cybertruck", "Cyberbeast", 115000, 120000, 5000, "Austin Vault HQ", "Stainless Steel", "Black", "Available")
+        ]
+        c.executemany("INSERT OR IGNORE INTO stock_watch VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", sample_stock)
 
     conn.commit()
     conn.close()
@@ -137,7 +138,6 @@ class TeslaHandler(http.server.SimpleHTTPRequestHandler):
                 c.execute("SELECT * FROM stock_watch ORDER BY discount DESC")
                 response_data = [dict(row) for row in c.fetchall()]
             elif path == '/api/tesla/vehicle_data':
-                # Fleet API Proxy matching vehicle-command SDK endpoints
                 c.execute("SELECT * FROM vehicle_telemetry")
                 vehicles = []
                 for row in c.fetchall():
@@ -215,7 +215,6 @@ class TeslaHandler(http.server.SimpleHTTPRequestHandler):
                 response_data = {"status": "added", "vin": vin}
 
             elif path == '/api/tesla/command':
-                # Vehicle Command Proxy (replicating vehicle-command REST endpoints: lock, unlock, climate, charge)
                 v_id = data.get('vehicle_id', 'TSLA_VIN_S_PLAID_01')
                 cmd = data.get('command')
                 val = data.get('val')
@@ -261,5 +260,5 @@ if __name__ == '__main__':
     init_db()
     os.chdir('/home/user')
     with socketserver.TCPServer(("", PORT), TeslaHandler) as httpd:
-        print(f"Tesla Fleet API & Vehicle Command Proxy running on port {PORT}...")
+        print(f"Tesla Full-Stack Server running on port {PORT}...")
         httpd.serve_forever()

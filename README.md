@@ -1,27 +1,28 @@
 # Tesla Marketplaces & Spacecominvestment Full-Stack Platform
 
-A fully operational full-stack web platform inspired by [tesla.com](https://www.tesla.com), combining official Tesla design aesthetics with a robust Python REST API, SQLite database, Stripe escrow simulation, automated notification dispatch, and real-time telemetry.
+A fully operational full-stack web platform inspired by [tesla.com](https://www.tesla.com), combining official Tesla design aesthetics with a robust Python REST API, SQLite database, multi-chain crypto escrow (USDT, USDC, ETH, BTC), live Supercharger locator, Stock Watcher, and Fleet API Vehicle Command proxy.
 
 ---
 
-## ⚡ Full-Stack Architecture
-
-1. **Database (`tesla_platform.db` / SQLite)**
-   * Relational database storing user accounts, sourcing briefs, consignment vault inventory, encrypted concierge messages, and automated email notifications.
-
-2. **Backend Server (`server.py` / Python REST API)**
-   * Built on Python `http.server` and `sqlite3`.
-   * Handles REST endpoints for brief submissions, tracking lookups, Stripe escrow payments (`/api/escrow/pay`), email notification logging, and real-time chat.
-
-3. **Frontend & Tesla Design System (`styles.css`, `index.html`, `dashboard.html`, `admin-dashboard.html`)**
-   * Full-bleed cinematic video/photography hero sections matching official Tesla standards.
-   * Floating transparent navigation that solidifies on scroll.
-   * Monochrome client portals and executive admin control rooms featuring real-time data sync with the backend.
+## 🚀 Deployment on Railway
+This repository is pre-configured for instant deployment on [Railway](https://railway.app):
+1. **Procfile:** Configured with `web: python3 server.py`.
+2. **Environment Port:** Automatically binds to Railway's `$PORT` environment variable (`os.environ.get('PORT', 8000)`).
+3. **Persistent SQLite:** `tesla_platform.db` initializes automatically on first boot.
 
 ---
 
-## 🚀 Live Features
-* **Real Database Persistence:** Sourcing briefs and escrow updates persist across reloads and sync between customers and admins.
-* **Stripe Escrow Simulation:** Securely fund vehicle retainers and escrow deposits with instant confirmation.
-* **Automated Email Dispatch:** Real notification logging for acquisition briefs and BMS battery health reports.
-* **Multi-Language Internationalization (`i18n.js`):** English, Spanish, French, German, and Japanese.
+## 📁 File Structure
+* `server.py` — Python full-stack server & REST API handling briefs, stock watch, vehicle commands, and SQLite storage.
+* `Procfile` — Railway deployment entrypoint.
+* `index.html` — Official Tesla.com snap-scroll homepage with CDN video assets.
+* `stock-watch.html` — Live Tesla inventory & price drop watcher.
+* `command.html` — Fleet API vehicle command proxy (lock, climate, charge).
+* `escrow.html` — Multi-chain crypto escrow payment gateway (USDT, USDC, ETH, BTC).
+* `superchargers.html` — Global V3/V4 Supercharger station locator.
+* `valuation.html` — Consignment valuation & appraisal calculator.
+* `dashboard.html` — Customer garage & portfolio asset manager.
+* `admin-dashboard.html` — Executive owner control room & telemetry.
+* `auth.html` — TLS 1.3 secure authentication gateway.
+* `styles.css` — Unified Tesla design system stylesheet.
+* `i18n.js` — Multi-language localization (English, Spanish, French, German, Japanese).

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Escrow & Retainer Gateway | Tesla</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="antialiased bg-[#f4f4f4] text-[#171a20]">
+
+    <!-- Navigation -->
+    <nav class="main-nav" style="background: rgba(255,255,255,0.9); border-bottom: 1px solid #e2e8f0; color: #171a20;">
+        <div class="nav-container">
+            <a href="index.html" class="logo flex items-center gap-3">
+                <svg viewBox="0 0 342 35" xmlns="http://www.w3.org/2000/svg" style="fill:#171a20; width:110px;"><path d="M0 .1a9.7 9.7 0 107 7 11 11 0 00-7-7zm25.8 2.3c2.4 0 4.3.4 5.8 1.3 1.5.9 2.6 2.2 3.3 3.9.7 1.7 1 3.7 1 6.1s-.3 4.4-1 6.1c-.7 1.7-1.8 3-3.3 3.9-1.5.9-3.4 1.3-5.8 1.3s-4.3-.4-5.8-1.3c-1.5-.9-2.6-2.2-3.3-3.9-.7-1.7-1-3.7-1-6.1s.3-4.4 1-6.1c.7-1.7 1.8-3 3.3-3.9 1.5-.9 3.4-1.3 5.8-1.3zm0 2.2c-1.8 0-3.3.3-4.4 1-1.1.7-1.9 1.6-2.4 2.9-.5 1.3-.8 2.9-.8 4.7s.3 3.4.8 4.7c.5 1.3 1.3 2.2 2.4 2.9 1.1.7 2.6 1 4.4 1s3.3-.3 4.4-1c1.1-.7 1.9-1.6 2.4-2.9.5-1.3.8-2.9.8-4.7s-.3-3.4-.8-4.7c-.5-1.3-1.3-2.2-2.4-2.9-1.1-.7-2.6-1-4.4-1zm37.2-2.7h19.5v2.2H83v18.7h-2.3V4.6H63v-2.2zm31.7 0h2.3v20.9h-2.3V2.4zm34.2 0h2.3l11.4 20.9h-2.5l-3.5-6.6H127l-3.5 6.6h-2.5l11.4-20.9zm-4.3 12.1h8.2l-4.1-7.8-4.1 7.8zm41.2-12.1h19.5v2.2h-17.2v7.1h16.2v2.2h-16.2v7.2h17.2v2.2h-19.5V2.4zm35.8 0h2.3v18.7h15v2.2h-17.3V2.4zm35.2 0h2.3v18.7h15v2.2h-17.3V2.4z"/></svg>
+                <span class="logo-tag" style="color:#393c41;">Crypto Escrow</span>
+            </a>
+            <div class="nav-links" style="color:#171a20;">
+                <a href="index.html">Home</a>
+                <a href="stock-watch.html">Stock Watch</a>
+                <a href="superchargers.html">Superchargers</a>
+                <a href="escrow.html" class="active" style="color:#e82127;">Crypto Escrow</a>
+                <a href="request.html">Source / Consign</a>
+                <a href="track.html">Track Order</a>
+                <a href="dashboard.html">Portal</a>
+            </div>
+            <div class="nav-actions flex items-center gap-4">
+                <a href="request.html" class="nav-cta hidden sm:inline-block">Client Brief</a>
+                <button class="nav-toggle" aria-label="Toggle Navigation">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="pt-32 pb-24 px-6 max-w-5xl mx-auto space-y-12">
+        <div class="text-center space-y-4">
+            <span class="inline-block py-1.5 px-6 rounded-full bg-[#e82127]/10 border border-[#e82127]/30 text-[#e82127] text-xs font-semibold tracking-[0.25em] uppercase">
+                Decentralized Multi-Chain Settlement
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-[#171a20]">Crypto Escrow & Retainer Gateway</h1>
+            <p class="text-base text-[#5c5e62] max-w-xl mx-auto font-light">
+                Fund your sourcing retainers and vehicle escrow securely via USDT, USDC, ETH, or BTC with instant blockchain verification.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Asset Selection -->
+            <div class="bg-white border border-[#e2e8f0] p-8 rounded-3xl shadow-sm space-y-6 md:col-span-1">
+                <h3 class="text-lg font-bold border-b border-[#e2e8f0] pb-3">1. Select Currency</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center justify-between p-4 rounded-2xl border-2 border-[#171a20] bg-gray-50 cursor-pointer crypto-option" onclick="selectCrypto('USDT', '0xTeslaVault...USDT', 2000)">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl"> Tether</span>
+                            <div>
+                                <div class="font-bold text-sm">USDT (ERC-20 / TRC-20)</div>
+                                <div class="text-xs text-gray-500">Instant Stablecoin Settlement</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-[#e82127]">Selected</span>
+                    </label>
+
+                    <label class="flex items-center justify-between p-4 rounded-2xl border border-[#e2e8f0] hover:border-[#171a20] bg-white cursor-pointer crypto-option" onclick="selectCrypto('USDC', '0xTeslaVault...USDC', 2000)">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl"> USD Coin</span>
+                            <div>
+                                <div class="font-bold text-sm">USDC (Ethereum)</div>
+                                <div class="text-xs text-gray-500">Regulated Digital Dollar</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-gray-400">Select</span>
+                    </label>
+
+                    <label class="flex items-center justify-between p-4 rounded-2xl border border-[#e2e8f0] hover:border-[#171a20] bg-white cursor-pointer crypto-option" onclick="selectCrypto('ETH', '0xTeslaVault...ETH', 0.65)">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl">Ξ</span>
+                            <div>
+                                <div class="font-bold text-sm">Ethereum (ETH)</div>
+                                <div class="text-xs text-gray-500">Native Layer-1 Asset</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-gray-400">Select</span>
+                    </label>
+
+                    <label class="flex items-center justify-between p-4 rounded-2xl border border-[#e2e8f0] hover:border-[#171a20] bg-white cursor-pointer crypto-option" onclick="selectCrypto('BTC', 'bc1qtesla...BTC', 0.032)">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl">₿</span>
+                            <div>
+                                <div class="font-bold text-sm">Bitcoin (BTC)</div>
+                                <div class="text-xs text-gray-500">Store of Value Settlement</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-gray-400">Select</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Payment Details & QR / Address -->
+            <div class="bg-white border border-[#e2e8f0] p-8 md:p-10 rounded-3xl shadow-sm space-y-6 md:col-span-2 flex flex-col justify-between">
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center border-b border-[#e2e8f0] pb-4">
+                        <h3 class="text-lg font-bold">2. Transfer Details</h3>
+                        <span id="badge-currency" class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold uppercase">USDT Vault</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 text-center flex flex-col items-center justify-center space-y-3">
+                            <div class="w-36 h-36 bg-white border border-gray-300 p-2 rounded-xl flex items-center justify-center font-mono text-[10px] text-gray-500 shadow-inner">
+                                [ SECURE QR CODE ]
+                            </div>
+                            <div class="text-xs text-gray-500">Scan via Web3 Wallet or Exchange</div>
+                        </div>
+
+                        <div class="space-y-4 flex flex-col justify-center">
+                            <div>
+                                <div class="text-xs uppercase text-gray-500 font-bold">Exact Amount Due</div>
+                                <div id="crypto-amount" class="text-3xl font-bold font-mono text-[#171a20] mt-1">2,000.00 USDT</div>
+                            </div>
+                            <div>
+                                <div class="text-xs uppercase text-gray-500 font-bold">Secure Vault Address</div>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <input type="text" id="crypto-address" readonly value="0xTeslaVault948210948210948210948210948210" class="w-full bg-gray-100 border border-gray-300 rounded-xl px-3 py-2 text-xs font-mono text-gray-700">
+                                    <button onclick="copyAddress()" class="btn-sm">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-amber-50 border border-amber-200 rounded-2xl text-xs text-amber-800 space-y-1">
+                        <strong>Escrow Protection Notice:</strong> Funds are locked in smart contract escrow until clean title verification and battery health PPI completion.
+                    </div>
+                </div>
+
+                <button onclick="verifyDeposit()" class="w-full py-4 rounded-xl bg-[#171a20] text-white font-bold text-xs uppercase tracking-widest hover:bg-black transition cursor-pointer">
+                    Verify On-Chain Deposit
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="tesla-footer">
+        <p>Tesla © 2026 • Decentralized Escrow Gateway</p>
+        <div class="footer-links">
+            <a href="about.html">Privacy & Legal</a>
+            <a href="about.html">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        let selectedCurrency = 'USDT';
+        let currentAmount = 2000;
+
+        function selectCrypto(curr, addr, amt) {
+            selectedCurrency = curr;
+            currentAmount = amt;
+            document.getElementById('badge-currency').innerText = curr + ' Vault';
+            document.getElementById('crypto-amount').innerText = amt.toLocaleString() + ' ' + curr;
+            document.getElementById('crypto-address').value = addr;
+
+            document.querySelectorAll('.crypto-option').forEach(el => {
+                el.style.borderColor = '#e2e8f0';
+                el.style.background = '#ffffff';
+                el.querySelector('span:last-child').innerText = 'Select';
+                el.querySelector('span:last-child').style.color = '#9ca3af';
+            });
+            event.currentTarget.style.borderColor = '#171a20';
+            event.currentTarget.style.background = '#f8fafc';
+            event.currentTarget.querySelector('span:last-child').innerText = 'Selected';
+            event.currentTarget.querySelector('span:last-child').style.color = '#e82127';
+        }
+
+        function copyAddress() {
+            var copyText = document.getElementById("crypto-address");
+            navigator.clipboard.writeText(copyText.value);
+            alert("Vault address copied to clipboard: " + copyText.value);
+        }
+
+        function verifyDeposit() {
+            alert('Broadcasting transaction verification to Tesla decentralized escrow node... Deposit confirmed! Your sourcing brief is now fully funded.');
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

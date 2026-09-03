@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Tesla Design System (Strictly matching tesla.com standards)
+   Tesla Clean Design System (Exact Light/Dark official tesla.com aesthetic)
    ========================================================================== */
 
 :root {
@@ -212,7 +212,7 @@ a { color: inherit; text-decoration: none; }
 .view { display: none; }
 .view.active { display: block; }
 
-/* Plain White Content Strips instead of Dark Cards */
+/* Plain White Content Strips */
 .dash-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

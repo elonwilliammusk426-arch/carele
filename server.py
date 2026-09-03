@@ -85,7 +85,6 @@ def init_db():
                     interior TEXT,
                     status TEXT)''')
 
-        # Seed default users
         c.execute("SELECT COUNT(*) FROM users")
         if c.fetchone()[0] == 0:
             c.execute("INSERT OR IGNORE INTO users (name, email, password, role, tier) VALUES (?, ?, ?, ?, ?)",
@@ -93,7 +92,6 @@ def init_db():
             c.execute("INSERT OR IGNORE INTO users (name, email, password, role, tier) VALUES (?, ?, ?, ?, ?)",
                       ('Jens Baumann', 'admin@tesla.com', hash_password('admin2026'), 'admin', 'Root Managing Director'))
 
-        # Seed default briefs if empty
         c.execute("SELECT COUNT(*) FROM briefs")
         if c.fetchone()[0] == 0:
             c.execute("INSERT INTO briefs (id, client_name, email, asset_spec, service_type, budget, notes, status, assigned_director, escrow_status) VALUES ('TSLA-REQ-94821', 'Elon Musk', 'elon@tesla.com', 'Tesla Model S Plaid (Ultra Red)', 'Personal Sourcing / Proxy Hunt', '$85,000', 'Cream interior, yoke steering', 'Battery PPI Active', 'Marcus Vance', 'Retainer Secured ($2,000)')")
@@ -118,7 +116,7 @@ def init_db():
         conn.commit()
         conn.close()
     except Exception as e:
-        print(f"Database Initialization Error: {e}")
+        print(f"DB Init Error: {e}")
 
 class TeslaHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -128,6 +126,7 @@ class TeslaHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header('X-Content-Type-Options', 'nosniff')
         self.send_header('X-Frame-Options', 'SAMEORIGIN')
         self.send_header('X-XSS-Protection', '1; mode=block')
+        self.send_header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
@@ -140,7 +139,12 @@ class TeslaHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed_path = urllib.parse.urlparse(self.path)
         path = parsed_path.path
-        query = urllib.parse.parse_qs(parsed_path.query)
+
+        # Clean URL Routing (Remove .html extensions in URL bar for production clean feel)
+        if not path.startswith('/api/') and not '.' in path and path != '/':
+            html_path = path + '.html'
+            if os.path.exists(os.path.join(BASE_DIR, html_path.lstrip('/'))):
+                self.path = html_path
 
         if path.startswith('/api/'):
             self.send_response(200)
@@ -151,6 +155,7 @@ class TeslaHandler(http.server.SimpleHTTPRequestHandler):
                 conn = sqlite3.connect(DB_FILE)
                 conn.row_factory = sqlite3.Row
                 c = conn.cursor()
+                query = urllib.parse.parse_qs(parsed_path.query)
 
                 response_data = {}
                 if path == '/api/briefs':

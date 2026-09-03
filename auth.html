@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Access | Tesla Consignment</title>
+    <title>Secure Access | Tesla</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,7 +75,7 @@
 
     <!-- Footer -->
     <footer class="w-full py-6 text-center text-xs text-[#9ca3af] border-t border-white/5">
-        <p>Tesla Tesla Secure Gateway © 2026</p>
+        <p>Tesla Consignment & Sourcing Secure Gateway © 2026</p>
     </footer>
 
     <!-- Toast Notification -->
@@ -118,18 +118,36 @@
 
         function handleAuthSubmit(e) {
             e.preventDefault();
-            const emailField = document.getElementById('email').value;
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const fullName = document.getElementById('fullName').value;
 
-            // Simple router demonstration: if email includes 'admin' or 'owner', go to admin dashboard, else dashboard
-            showToast("Session Verified", `Securing token for ${emailField}... Redirecting.`);
+            var endpoint = isSignup ? '/api/auth/signup' : '/api/auth/signin';
+            var payload = isSignup ? { name: fullName, email: email, password: password } : { email: email, password: password };
 
-            setTimeout(() => {
-                if(emailField.includes('admin') || emailField.includes('owner') || emailField.includes('director')) {
-                    window.location.href = 'admin-dashboard.html';
+            fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    showToast("Authentication Successful", `Welcome, ${data.email}! Redirecting...`);
+                    setTimeout(() => {
+                        if(data.role === 'admin') {
+                            window.location.href = 'admin-dashboard.html';
+                        } else {
+                            window.location.href = 'dashboard.html';
+                        }
+                    }, 1200);
                 } else {
-                    window.location.href = 'dashboard.html';
+                    alert(data.message || 'Authentication failed.');
                 }
-            }, 1200);
+            })
+            .catch(err => {
+                alert('Network error during authentication.');
+            });
         }
 
         function showToast(title, desc) {
@@ -142,6 +160,5 @@
             }, 3500);
         }
     </script>
-    <script src="i18n.js"></script>
 </body>
 </html>

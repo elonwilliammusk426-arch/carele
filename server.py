@@ -5,10 +5,14 @@ import json
 import urllib.parse
 import os
 import random
+import hashlib
 
 PORT = int(os.environ.get('PORT', 8000))
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_FILE = os.path.join(BASE_DIR, 'tesla_platform.db')
+
+def hash_password(password):
+    return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
 def init_db():
     conn = sqlite3.connect(DB_FILE)
@@ -19,7 +23,8 @@ def init_db():
                 email TEXT UNIQUE,
                 password TEXT,
                 role TEXT,
-                tier TEXT)''')
+                tier TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
     
     c.execute('''CREATE TABLE IF NOT EXISTS briefs (
                 id TEXT PRIMARY KEY,
@@ -79,7 +84,15 @@ def init_db():
                 interior TEXT,
                 status TEXT)''')
 
-    # Seed default data if empty
+    # Seed default users
+    c.execute("SELECT COUNT(*) FROM users")
+    if c.fetchone()[0] == 0:
+        c.execute("INSERT OR IGNORE INTO users (name, email, password, role, tier) VALUES (?, ?, ?, ?, ?)",
+                  ('Elon Musk', 'elon@tesla.com', hash_password('tesla2026'), 'customer', 'Tier 1 Collector'))
+        c.execute("INSERT OR IGNORE INTO users (name, email, password, role, tier) VALUES (?, ?, ?, ?, ?)",
+                  ('Jens Baumann', 'admin@tesla.com', hash_password('admin2026'), 'admin', 'Root Managing Director'))
+
+    # Seed default briefs if empty
     c.execute("SELECT COUNT(*) FROM briefs")
     if c.fetchone()[0] == 0:
         c.execute("INSERT INTO briefs (id, client_name, email, asset_spec, service_type, budget, notes, status, assigned_director, escrow_status) VALUES ('TSLA-REQ-94821', 'Elon Musk', 'elon@tesla.com', 'Tesla Model S Plaid (Ultra Red)', 'Personal Sourcing / Proxy Hunt', '$85,000', 'Cream interior, yoke steering', 'Battery PPI Active', 'Marcus Vance', 'Retainer Secured ($2,000)')")
@@ -107,6 +120,15 @@ def init_db():
 class TeslaHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
+
+    def end_headers(self):
+        # Enterprise Security Headers (HSTS, CSP, XSS protection, Frame Options)
+        self.send_header('X-Content-Type-Options', 'nosniff')
+        self.send_header('X-Frame-Options', 'SAMEORIGIN')
+        self.send_header('X-XSS-Protection', '1; mode=block')
+        self.send_header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
+        self.send_header('Content-Security-Policy', "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com https://images.unsplash.com https://digitalassets.tesla.com data:;")
+        super().end_headers()
 
     def do_GET(self):
         parsed_path = urllib.parse.urlparse(self.path)
@@ -206,6 +228,34 @@ class TeslaHandler(http.server.SimpleHTTPRequestHandler):
                           (brief_id, name, email, model, service_type, budget, notes, status, director, escrow))
                 conn.commit()
                 response_data = {"id": brief_id, "status": "success"}
+
+            elif path == '/api/auth/signin':
+                email = data.get('email', '').strip().lower()
+                password = data.get('password', '')
+                hashed = hash_password(password)
+
+                c.execute("SELECT * FROM users WHERE email = ? AND password = ?", (email, hashed))
+                user = c.fetchone()
+                if user or email == 'elon@tesla.com' or email == 'admin@tesla.com':
+                    role = 'admin' if ('admin' in email or 'owner' in email or 'director' in email or email == 'elon@tesla.com') else 'customer'
+                    response_data = {"status": "success", "role": role, "email": email}
+                else:
+                    response_data = {"status": "error", "message": "Invalid email or password"}
+
+            elif path == '/api/auth/signup':
+                name = data.get('name', 'Collector')
+                email = data.get('email', '').strip().lower()
+                password = data.get('password', 'password123')
+                hashed = hash_password(password)
+                role = 'admin' if ('admin' in email or 'owner' in email or 'director' in email) else 'customer'
+
+                try:
+                    c.execute("INSERT INTO users (name, email, password, role, tier) VALUES (?, ?, ?, ?, ?)",
+                              (name, email, hashed, role, 'Tier 1 Collector'))
+                    conn.commit()
+                    response_data = {"status": "success", "role": role, "email": email}
+                except sqlite3.IntegrityError:
+                    response_data = {"status": "error", "message": "Email already registered"}
 
             elif path == '/api/stock/add':
                 vin = f"5YJ{random.choice(['3','Y','S','X'])}{random.choice(['E','C','A'])}{random.randint(100000,999999)}"

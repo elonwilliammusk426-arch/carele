@@ -7,7 +7,8 @@ import os
 import random
 
 PORT = int(os.environ.get('PORT', 8000))
-DB_FILE = 'tesla_platform.db'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_FILE = os.path.join(BASE_DIR, 'tesla_platform.db')
 
 def init_db():
     conn = sqlite3.connect(DB_FILE)
@@ -104,6 +105,9 @@ def init_db():
     conn.close()
 
 class TeslaHandler(http.server.SimpleHTTPRequestHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory=BASE_DIR, **kwargs)
+
     def do_GET(self):
         parsed_path = urllib.parse.urlparse(self.path)
         path = parsed_path.path
@@ -258,7 +262,6 @@ class TeslaHandler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == '__main__':
     init_db()
-    os.chdir('/home/user')
     with socketserver.TCPServer(("", PORT), TeslaHandler) as httpd:
         print(f"Tesla Full-Stack Server running on port {PORT}...")
         httpd.serve_forever()

@@ -1,20 +1,20 @@
 // ============================================================================
-// Tesla Enterprise Full-Stack Server (Node.js + Express + SQLite + C++ SDK Bridge)
+// Tesla Enterprise Full-Stack Server (Node.js + Express + JSON Data Store)
 // ============================================================================
 
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
 const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-const DB_FILE = path.join(__dirname, 'tesla_platform.db');
+const DB_FILE = path.join(__dirname, 'tesla_db.json');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Enterprise Security Headers (HSTS, CSP, XSS protection, Frame Options)
+// Enterprise Security Headers
 app.use((req, res, next) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'SAMEORIGIN');
@@ -24,105 +24,45 @@ app.use((req, res, next) => {
     next();
 });
 
-// Initialize SQLite Database & Tables
-const db = new sqlite3.Database(DB_FILE, (err) => {
-    if (err) {
-        console.error('Database opening error: ', err.message);
-    } else {
-        console.log('Connected to SQLite database (tesla_platform.db).');
-        initDb();
+// Initialize JSON Database
+function loadDb() {
+    if (!fs.existsSync(DB_FILE)) {
+        const initial = {
+            users: [
+                { id: 1, name: 'Elon Musk', email: 'elon@tesla.com', password: hashPassword('tesla2026'), role: 'admin', tier: 'Tier 1 Collector' },
+                { id: 2, name: 'Jens Baumann', email: 'admin@tesla.com', password: hashPassword('admin2026'), role: 'admin', tier: 'Root Managing Director' }
+            ],
+            briefs: [
+                { id: 'TSLA-REQ-94821', client_name: 'Elon Musk', email: 'elon@tesla.com', asset_spec: 'Tesla Model S Plaid (Ultra Red)', service_type: 'Personal Sourcing / Proxy Hunt', budget: '$85,000', notes: 'Cream interior, yoke steering', status: 'Battery PPI Active', assigned_director: 'Marcus Vance', escrow_status: 'Retainer Secured ($2,000)', created_at: new Date().toISOString() },
+                { id: 'TSLA-REQ-81920', client_name: 'Safra Catz', email: 'safra@example.com', asset_spec: 'Cybertruck Foundation Series', service_type: 'Personal Sourcing / Proxy Hunt', budget: '$115,000', notes: 'Tri-motor AWD', status: 'Escrow Pending', assigned_director: 'Greta Lindqvist', escrow_status: 'Unpaid', created_at: new Date().toISOString() }
+            ],
+            vehicle_telemetry: [
+                { vehicle_id: 'TSLA_VIN_S_PLAID_01', model_name: 'Tesla Model S Plaid', charging_state: 'Charging', battery_level: 88, est_battery_range: 365.4, climate_on: 1, charge_limit: 90, doors_locked: 1 },
+                { vehicle_id: 'TSLA_VIN_Y_PERF_02', model_name: 'Tesla Model Y Performance', charging_state: 'Disconnected', battery_level: 94, est_battery_range: 290.1, climate_on: 0, charge_limit: 80, doors_locked: 1 }
+            ],
+            stock_watch: [
+                { vin: '5YJ3E1EB9NF194820', model: 'Model 3', trim: 'Long Range AWD', price: 61900, original_price: 65900, discount: 4000, location: 'Austin, TX', exterior: 'Stealth Grey', interior: 'Black', status: 'Available' },
+                { vin: '7SAXCBE5RPA821904', model: 'Model Y', trim: 'Performance', price: 48490, original_price: 52490, discount: 4000, location: 'Fremont, CA', exterior: 'Ultra Red', interior: 'White', status: 'Available' },
+                { vin: '5YJSA1E21NF992810', model: 'Model S', trim: 'Plaid', price: 89900, original_price: 94900, discount: 5000, location: 'Berlin Atelier', exterior: 'Deep Blue', interior: 'Cream', status: 'Reserved' },
+                { vin: '7SAYGDEE6PA109283', model: 'Model X', trim: 'Plaid', price: 94900, original_price: 99900, discount: 5000, location: 'Shanghai Bureau', exterior: 'Pearl White', interior: 'Black', status: 'Available' },
+                { vin: '3C63R3FL6RG918273', model: 'Cybertruck', trim: 'Cyberbeast', price: 115000, original_price: 120000, discount: 5000, location: 'Austin Vault HQ', exterior: 'Stainless Steel', interior: 'Black', status: 'Available' }
+            ]
+        };
+        fs.writeFileSync(DB_FILE, JSON.stringify(initial, null, 2));
     }
-});
+    try {
+        return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+    } catch (e) {
+        return { users: [], briefs: [], vehicle_telemetry: [], stock_watch: [] };
+    }
+}
+
+function saveDb(data) {
+    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+}
 
 function hashPassword(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
-}
-
-function initDb() {
-    db.serialize(() => {
-        db.run(`CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            email TEXT UNIQUE,
-            password TEXT,
-            role TEXT,
-            tier TEXT,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )`);
-
-        db.run(`CREATE TABLE IF NOT EXISTS briefs (
-            id TEXT PRIMARY KEY,
-            client_name TEXT,
-            email TEXT,
-            asset_spec TEXT,
-            service_type TEXT,
-            budget TEXT,
-            notes TEXT,
-            status TEXT,
-            assigned_director TEXT,
-            escrow_status TEXT DEFAULT 'Unpaid',
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )`);
-
-        db.run(`CREATE TABLE IF NOT EXISTS vehicle_telemetry (
-            vehicle_id TEXT PRIMARY KEY,
-            model_name TEXT,
-            charging_state TEXT,
-            battery_level INTEGER,
-            est_battery_range REAL,
-            climate_on INTEGER,
-            charge_limit INTEGER,
-            doors_locked INTEGER,
-            last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )`);
-
-        db.run(`CREATE TABLE IF NOT EXISTS stock_watch (
-            vin TEXT PRIMARY KEY,
-            model TEXT,
-            trim TEXT,
-            price INTEGER,
-            original_price INTEGER,
-            discount INTEGER,
-            location TEXT,
-            exterior TEXT,
-            interior TEXT,
-            status TEXT
-        )`);
-
-        // Seed users
-        db.get("SELECT COUNT(*) as count FROM users", (err, row) => {
-            if (row && row.count === 0) {
-                db.run("INSERT OR IGNORE INTO users (name, email, password, role, tier) VALUES (?, ?, ?, ?, ?)",
-                    ['Elon Musk', 'elon@tesla.com', hashPassword('tesla2026'), 'customer', 'Tier 1 Collector']);
-                db.run("INSERT OR IGNORE INTO users (name, email, password, role, tier) VALUES (?, ?, ?, ?, ?)",
-                    ['Jens Baumann', 'admin@tesla.com', hashPassword('admin2026'), 'admin', 'Root Managing Director']);
-            }
-        });
-
-        // Seed vehicle telemetry
-        db.get("SELECT COUNT(*) as count FROM vehicle_telemetry", (err, row) => {
-            if (row && row.count === 0) {
-                db.run("INSERT INTO vehicle_telemetry VALUES ('TSLA_VIN_S_PLAID_01', 'Tesla Model S Plaid', 'Charging', 88, 365.4, 1, 90, 1, CURRENT_TIMESTAMP)");
-                db.run("INSERT INTO vehicle_telemetry VALUES ('TSLA_VIN_Y_PERF_02', 'Tesla Model Y Performance', 'Disconnected', 94, 290.1, 0, 80, 1, CURRENT_TIMESTAMP)");
-            }
-        });
-
-        // Seed stock watch
-        db.get("SELECT COUNT(*) as count FROM stock_watch", (err, row) => {
-            if (row && row.count === 0) {
-                const stock = [
-                    ["5YJ3E1EB9NF194820", "Model 3", "Long Range AWD", 61900, 65900, 4000, "Austin, TX", "Stealth Grey", "Black", "Available"],
-                    ["7SAXCBE5RPA821904", "Model Y", "Performance", 48490, 52490, 4000, "Fremont, CA", "Ultra Red", "White", "Available"],
-                    ["5YJSA1E21NF992810", "Model S", "Plaid", 89900, 94900, 5000, "Berlin Atelier", "Deep Blue", "Cream", "Reserved"],
-                    ["7SAYGDEE6PA109283", "Model X", "Plaid", 94900, 99900, 5000, "Shanghai Bureau", "Pearl White", "Black", "Available"],
-                    ["3C63R3FL6RG918273", "Cybertruck", "Cyberbeast", 115000, 120000, 5000, "Austin Vault HQ", "Stainless Steel", "Black", "Available"]
-                ];
-                const stmt = db.prepare("INSERT OR IGNORE INTO stock_watch VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                stock.forEach(s => stmt.run(s));
-                stmt.finalize();
-            }
-        });
-    });
 }
 
 // ============================================================================
@@ -130,52 +70,47 @@ function initDb() {
 // ============================================================================
 
 app.get('/api/briefs', (req, res) => {
-    db.all("SELECT * FROM briefs ORDER BY created_at DESC", [], (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
+    const db = loadDb();
+    res.json(db.briefs);
 });
 
 app.get('/api/briefs/lookup', (req, res) => {
     const briefId = (req.query.id || '').trim().toUpperCase();
-    db.get("SELECT * FROM briefs WHERE id = ? OR email = ?", [briefId, briefId.toLowerCase()], (err, row) => {
-        if (err) return res.status(500).json({ error: err.message });
-        if (!row) return res.status(404).json({ error: "Brief not found" });
-        res.json(row);
-    });
+    const db = loadDb();
+    const match = db.briefs.find(b => b.id.toUpperCase() === briefId || (b.email && b.email.toLowerCase() === briefId.toLowerCase()));
+    if (!match) return res.status(404).json({ error: "Brief not found" });
+    res.json(match);
 });
 
 app.get('/api/stock', (req, res) => {
-    db.all("SELECT * FROM stock_watch ORDER BY discount DESC", [], (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
+    const db = loadDb();
+    const sorted = [...db.stock_watch].sort((a, b) => b.discount - a.discount);
+    res.json(sorted);
 });
 
 app.get('/api/tesla/vehicle_data', (req, res) => {
-    db.all("SELECT * FROM vehicle_telemetry", [], (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        const vehicles = rows.map(row => ({
-            "vehicle_id": row.vehicle_id,
-            "display_name": row.model_name,
-            "charge_state": {
-                "charging_state": row.charging_state,
-                "battery_level": row.battery_level,
-                "est_battery_range": row.est_battery_range,
-                "charge_limit_soc": row.charge_limit
-            },
-            "climate_state": {
-                "is_auto_conditioning_on": Boolean(row.climate_on)
-            },
-            "vehicle_state": {
-                "locked": Boolean(row.doors_locked)
-            }
-        }));
-        res.json({ response: vehicles });
-    });
+    const db = loadDb();
+    const vehicles = db.vehicle_telemetry.map(row => ({
+        "vehicle_id": row.vehicle_id,
+        "display_name": row.model_name,
+        "charge_state": {
+            "charging_state": row.charging_state,
+            "battery_level": row.battery_level,
+            "est_battery_range": row.est_battery_range,
+            "charge_limit_soc": row.charge_limit
+        },
+        "climate_state": {
+            "is_auto_conditioning_on": Boolean(row.climate_on)
+        },
+        "vehicle_state": {
+            "locked": Boolean(row.doors_locked)
+        }
+    }));
+    res.json({ response: vehicles });
 });
 
 app.post('/api/briefs', (req, res) => {
+    const db = loadDb();
     const briefId = `TSLA-REQ-${Math.floor(10000 + Math.random() * 90000)}`;
     const serviceType = req.body.service_type || 'Personal Sourcing / Proxy Hunt';
     const model = req.body.model || req.body.itemName || 'Tesla Model S Plaid';
@@ -187,14 +122,23 @@ app.post('/api/briefs', (req, res) => {
     const director = 'Marcus Vance';
     const escrow = 'Retainer Secured ($2,000)';
 
-    db.run(
-        `INSERT INTO briefs (id, client_name, email, asset_spec, service_type, budget, notes, status, assigned_director, escrow_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [briefId, name, email, model, serviceType, budget, notes, status, director, escrow],
-        function(err) {
-            if (err) return res.status(500).json({ error: err.message });
-            res.json({ id: briefId, status: 'success' });
-        }
-    );
+    const newBrief = {
+        id: briefId,
+        client_name: name,
+        email: email,
+        asset_spec: model,
+        service_type: serviceType,
+        budget: budget,
+        notes: notes,
+        status: status,
+        assigned_director: director,
+        escrow_status: escrow,
+        created_at: new Date().toISOString()
+    };
+
+    db.briefs.unshift(newBrief);
+    saveDb(db);
+    res.json({ id: briefId, status: 'success' });
 });
 
 app.post('/api/auth/signin', (req, res) => {
@@ -202,14 +146,15 @@ app.post('/api/auth/signin', (req, res) => {
     const password = req.body.password || '';
     const hashed = hashPassword(password);
 
-    db.get("SELECT * FROM users WHERE email = ? AND password = ?", [email, hashed], (err, user) => {
-        if (user || email === 'elon@tesla.com' || email === 'admin@tesla.com') {
-            const role = (email.includes('admin') || email.includes('owner') || email.includes('director') || email === 'elon@tesla.com') ? 'admin' : 'customer';
-            res.json({ status: 'success', role: role, email: email });
-        } else {
-            res.status(401).json({ status: 'error', message: 'Invalid email or password' });
-        }
-    });
+    const db = loadDb();
+    const user = db.users.find(u => u.email.toLowerCase() === email && u.password === hashed);
+
+    if (user || email === 'elon@tesla.com' || email === 'admin@tesla.com') {
+        const role = (email.includes('admin') || email.includes('owner') || email.includes('director') || email === 'elon@tesla.com') ? 'admin' : 'customer';
+        res.json({ status: 'success', role: role, email: email });
+    } else {
+        res.status(401).json({ status: 'error', message: 'Invalid email or password' });
+    }
 });
 
 app.post('/api/auth/signup', (req, res) => {
@@ -219,13 +164,14 @@ app.post('/api/auth/signup', (req, res) => {
     const hashed = hashPassword(password);
     const role = (email.includes('admin') || email.includes('owner') || email.includes('director')) ? 'admin' : 'customer';
 
-    db.run("INSERT INTO users (name, email, password, role, tier) VALUES (?, ?, ?, ?, ?)",
-        [name, email, hashed, role, 'Tier 1 Collector'],
-        function(err) {
-            if (err) return res.status(400).json({ status: 'error', message: 'Email already registered' });
-            res.json({ status: 'success', role: role, email: email });
-        }
-    );
+    const db = loadDb();
+    if (db.users.some(u => u.email.toLowerCase() === email)) {
+        return res.status(400).json({ status: 'error', message: 'Email already registered' });
+    }
+
+    db.users.push({ id: db.users.length + 1, name, email, password: hashed, role, tier: 'Tier 1 Collector' });
+    saveDb(db);
+    res.json({ status: 'success', role: role, email: email });
 });
 
 app.post('/api/tesla/command', (req, res) => {
@@ -233,44 +179,21 @@ app.post('/api/tesla/command', (req, res) => {
     const cmd = req.body.command;
     const val = req.body.val;
 
-    if (cmd === 'wake_up') {
-        return res.json({ response: { result: true, reason: 'online' } });
+    const db = loadDb();
+    const v = db.vehicle_telemetry.find(x => x.vehicle_id === vId);
+
+    if (v) {
+        if (cmd === 'charge_start') v.charging_state = 'Charging';
+        if (cmd === 'charge_stop') v.charging_state = 'Disconnected';
+        if (cmd === 'auto_conditioning_start') v.climate_on = 1;
+        if (cmd === 'auto_conditioning_stop') v.climate_on = 0;
+        if (cmd === 'door_lock') v.doors_locked = 1;
+        if (cmd === 'door_unlock') v.doors_locked = 0;
+        if (cmd === 'set_charge_limit' && val) v.charge_limit = parseInt(val);
+        saveDb(db);
     }
 
-    let sql = '';
-    let params = [];
-
-    if (cmd === 'charge_start') {
-        sql = "UPDATE vehicle_telemetry SET charging_state = 'Charging' WHERE vehicle_id = ?";
-        params = [vId];
-    } else if (cmd === 'charge_stop') {
-        sql = "UPDATE vehicle_telemetry SET charging_state = 'Disconnected' WHERE vehicle_id = ?";
-        params = [vId];
-    } else if (cmd === 'auto_conditioning_start') {
-        sql = "UPDATE vehicle_telemetry SET climate_on = 1 WHERE vehicle_id = ?";
-        params = [vId];
-    } else if (cmd === 'auto_conditioning_stop') {
-        sql = "UPDATE vehicle_telemetry SET climate_on = 0 WHERE vehicle_id = ?";
-        params = [vId];
-    } else if (cmd === 'door_lock') {
-        sql = "UPDATE vehicle_telemetry SET doors_locked = 1 WHERE vehicle_id = ?";
-        params = [vId];
-    } else if (cmd === 'door_unlock') {
-        sql = "UPDATE vehicle_telemetry SET doors_locked = 0 WHERE vehicle_id = ?";
-        params = [vId];
-    } else if (cmd === 'set_charge_limit') {
-        sql = "UPDATE vehicle_telemetry SET charge_limit = ? WHERE vehicle_id = ?";
-        params = [val, vId];
-    }
-
-    if (sql) {
-        db.run(sql, params, (err) => {
-            if (err) return res.status(500).json({ error: err.message });
-            res.json({ response: { result: true } });
-        });
-    } else {
-        res.json({ response: { result: true } });
-    }
+    res.json({ response: { result: true } });
 });
 
 // ============================================================================
@@ -280,5 +203,5 @@ app.post('/api/tesla/command', (req, res) => {
 app.use(express.static(__dirname, { extensions: ['html'] }));
 
 app.listen(PORT, () => {
-    console.log(`Tesla Full-Stack Node.js/Express Server running on port ${PORT}...`);
+    console.log(`Tesla Full-Stack Express Server (JSON Store) running on port ${PORT}...`);
 });

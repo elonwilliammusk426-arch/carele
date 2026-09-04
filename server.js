@@ -24,8 +24,12 @@ app.use((req, res, next) => {
     next();
 });
 
-// Initialize JSON Database
-function loadDb() {
+function hashPassword(password) {
+    return crypto.createHash('sha256').update(password).digest('hex');
+}
+
+// Initialize JSON Database synchronously on startup
+function initDbFile() {
     if (!fs.existsSync(DB_FILE)) {
         const initial = {
             users: [
@@ -49,8 +53,17 @@ function loadDb() {
             ]
         };
         fs.writeFileSync(DB_FILE, JSON.stringify(initial, null, 2));
+        console.log('Created and seeded initial tesla_db.json.');
     }
+}
+
+initDbFile();
+
+function loadDb() {
     try {
+        if (!fs.existsSync(DB_FILE)) {
+            initDbFile();
+        }
         return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
     } catch (e) {
         return { users: [], briefs: [], vehicle_telemetry: [], stock_watch: [] };
@@ -59,10 +72,6 @@ function loadDb() {
 
 function saveDb(data) {
     fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
-}
-
-function hashPassword(password) {
-    return crypto.createHash('sha256').update(password).digest('hex');
 }
 
 // ============================================================================

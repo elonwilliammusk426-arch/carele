@@ -1,0 +1,132 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Elon Musk",
+      "email": "elon@tesla.com",
+      "password": "66a79563f47ea5d057a2d31e47581ed6760c6a6923a20e5bf4cc0e682f45cde7",
+      "role": "admin",
+      "tier": "Tier 1 Collector"
+    },
+    {
+      "id": 2,
+      "name": "Jens Baumann",
+      "email": "admin@tesla.com",
+      "password": "6051fc84a7a0d74c225fb18a496b09952da5642e60723ecae543298edd7d82d6",
+      "role": "admin",
+      "tier": "Root Managing Director"
+    }
+  ],
+  "briefs": [
+    {
+      "id": "TSLA-REQ-94821",
+      "client_name": "Elon Musk",
+      "email": "elon@tesla.com",
+      "asset_spec": "Tesla Model S Plaid (Ultra Red)",
+      "service_type": "Personal Sourcing / Proxy Hunt",
+      "budget": "$85,000",
+      "notes": "Cream interior, yoke steering",
+      "status": "Battery PPI Active",
+      "assigned_director": "Marcus Vance",
+      "escrow_status": "Retainer Secured ($2,000)",
+      "created_at": "2026-09-04T01:50:32.011Z"
+    },
+    {
+      "id": "TSLA-REQ-81920",
+      "client_name": "Safra Catz",
+      "email": "safra@example.com",
+      "asset_spec": "Cybertruck Foundation Series",
+      "service_type": "Personal Sourcing / Proxy Hunt",
+      "budget": "$115,000",
+      "notes": "Tri-motor AWD",
+      "status": "Escrow Pending",
+      "assigned_director": "Greta Lindqvist",
+      "escrow_status": "Unpaid",
+      "created_at": "2026-09-04T01:50:32.011Z"
+    }
+  ],
+  "vehicle_telemetry": [
+    {
+      "vehicle_id": "TSLA_VIN_S_PLAID_01",
+      "model_name": "Tesla Model S Plaid",
+      "charging_state": "Charging",
+      "battery_level": 88,
+      "est_battery_range": 365.4,
+      "climate_on": 1,
+      "charge_limit": 90,
+      "doors_locked": 1
+    },
+    {
+      "vehicle_id": "TSLA_VIN_Y_PERF_02",
+      "model_name": "Tesla Model Y Performance",
+      "charging_state": "Disconnected",
+      "battery_level": 94,
+      "est_battery_range": 290.1,
+      "climate_on": 0,
+      "charge_limit": 80,
+      "doors_locked": 1
+    }
+  ],
+  "stock_watch": [
+    {
+      "vin": "5YJ3E1EB9NF194820",
+      "model": "Model 3",
+      "trim": "Long Range AWD",
+      "price": 61900,
+      "original_price": 65900,
+      "discount": 4000,
+      "location": "Austin, TX",
+      "exterior": "Stealth Grey",
+      "interior": "Black",
+      "status": "Available"
+    },
+    {
+      "vin": "7SAXCBE5RPA821904",
+      "model": "Model Y",
+      "trim": "Performance",
+      "price": 48490,
+      "original_price": 52490,
+      "discount": 4000,
+      "location": "Fremont, CA",
+      "exterior": "Ultra Red",
+      "interior": "White",
+      "status": "Available"
+    },
+    {
+      "vin": "5YJSA1E21NF992810",
+      "model": "Model S",
+      "trim": "Plaid",
+      "price": 89900,
+      "original_price": 94900,
+      "discount": 5000,
+      "location": "Berlin Atelier",
+      "exterior": "Deep Blue",
+      "interior": "Cream",
+      "status": "Reserved"
+    },
+    {
+      "vin": "7SAYGDEE6PA109283",
+      "model": "Model X",
+      "trim": "Plaid",
+      "price": 94900,
+      "original_price": 99900,
+      "discount": 5000,
+      "location": "Shanghai Bureau",
+      "exterior": "Pearl White",
+      "interior": "Black",
+      "status": "Available"
+    },
+    {
+      "vin": "3C63R3FL6RG918273",
+      "model": "Cybertruck",
+      "trim": "Cyberbeast",
+      "price": 115000,
+      "original_price": 120000,
+      "discount": 5000,
+      "location": "Austin Vault HQ",
+      "exterior": "Stainless Steel",
+      "interior": "Black",
+      "status": "Available"
+    }
+  ]
+}

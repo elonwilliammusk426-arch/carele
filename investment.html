@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Relations & Live Market | Tesla</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="antialiased bg-[#f4f4f4] text-[#171a20]">
+
+    <!-- Navigation -->
+    <nav class="main-nav" style="background: rgba(255,255,255,0.95); border-bottom: 1px solid #e2e8f0; color: #171a20;">
+        <div class="nav-container">
+            <a href="index" class="logo flex items-center gap-3">
+                <svg viewBox="0 0 342 35" xmlns="http://www.w3.org/2000/svg" style="fill:#171a20; width:110px;"><path d="M0 .1a9.7 9.7 0 107 7 11 11 0 00-7-7zm25.8 2.3c2.4 0 4.3.4 5.8 1.3 1.5.9 2.6 2.2 3.3 3.9.7 1.7 1 3.7 1 6.1s-.3 4.4-1 6.1c-.7 1.7-1.8 3-3.3 3.9-1.5.9-3.4 1.3-5.8 1.3s-4.3-.4-5.8-1.3c-1.5-.9-2.6-2.2-3.3-3.9-.7-1.7-1-3.7-1-6.1s.3-4.4 1-6.1c.7-1.7 1.8-3 3.3-3.9 1.5-.9 3.4-1.3 5.8-1.3zm0 2.2c-1.8 0-3.3.3-4.4 1-1.1.7-1.9 1.6-2.4 2.9-.5 1.3-.8 2.9-.8 4.7s.3 3.4.8 4.7c.5 1.3 1.3 2.2 2.4 2.9 1.1.7 2.6 1 4.4 1s3.3-.3 4.4-1c1.1-.7 1.9-1.6 2.4-2.9.5-1.3.8-2.9.8-4.7s-.3-3.4-.8-4.7c-.5-1.3-1.3-2.2-2.4-2.9-1.1-.7-2.6-1-4.4-1zm37.2-2.7h19.5v2.2H83v18.7h-2.3V4.6H63v-2.2zm31.7 0h2.3v20.9h-2.3V2.4zm34.2 0h2.3l11.4 20.9h-2.5l-3.5-6.6H127l-3.5 6.6h-2.5l11.4-20.9zm-4.3 12.1h8.2l-4.1-7.8-4.1 7.8zm41.2-12.1h19.5v2.2h-17.2v7.1h16.2v2.2h-16.2v7.2h17.2v2.2h-19.5V2.4zm35.8 0h2.3v18.7h15v2.2h-17.3V2.4zm35.2 0h2.3v18.7h15v2.2h-17.3V2.4z"/></svg>
+            </a>
+            <div class="nav-links" style="color:#171a20;">
+                <a href="index">Home</a>
+                <a href="categories">Vehicles</a>
+                <a href="investment" class="active" style="color:#3e6ae1;">Investor Relations</a>
+                <a href="stock-watch">Stock Watch</a>
+                <a href="dashboard">Portal</a>
+            </div>
+            <div class="nav-actions flex items-center gap-4">
+                <a href="request" class="nav-cta hidden sm:inline-block">Custom Order</a>
+                <button class="nav-toggle" aria-label="Toggle Navigation">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="pt-32 pb-24 px-6 max-w-7xl mx-auto space-y-16">
+        <div class="text-center space-y-4 max-w-3xl mx-auto">
+            <span class="text-xs uppercase tracking-[0.2em] font-bold text-[#3e6ae1]">Spacecominvestment & Stock Market</span>
+            <h1 class="text-4xl md:text-6xl font-medium tracking-tight text-[#171a20]">Tesla Live Market & Investment Guide</h1>
+            <p class="text-base text-[#5c5e62] font-light">
+                Real-time NASDAQ: TSLA market ticker, financial fundamentals, clean energy equity distribution, and step-by-step investment guide.
+            </p>
+        </div>
+
+        <!-- Live Ticker Stats -->
+        <div class="dash-stats">
+            <div class="dash-stat">
+                <div class="num blue" id="stock-price">$248.50</div>
+                <div class="lbl">NASDAQ: TSLA Price</div>
+            </div>
+            <div class="dash-stat">
+                <div class="num text-green-600">+3.42%</div>
+                <div class="lbl">Daily Change</div>
+            </div>
+            <div class="dash-stat">
+                <div class="num">$789.2B</div>
+                <div class="lbl">Market Capitalization</div>
+            </div>
+            <div class="dash-stat">
+                <div class="num">18.4 GWh</div>
+                <div class="lbl">Q3 Energy Deployed</div>
+            </div>
+        </div>
+
+        <!-- Two Column Layout: Process & Guide + Investment Calculator -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <!-- Left: Step-by-Step Guide & Process -->
+            <div class="bg-white border border-[#e2e8f0] p-8 md:p-10 rounded-3xl shadow-sm space-y-8">
+                <h2 class="text-xl font-medium border-b border-[#e2e8f0] pb-4 text-[#171a20]">Step-by-Step Investment & Acquisition Guide</h2>
+                
+                <div class="space-y-6 text-sm">
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-50 text-[#3e6ae1] font-bold flex items-center justify-center shrink-0">01</div>
+                        <div>
+                            <h3 class="font-bold text-[#171a20] text-base">Verify Account & Tier</h3>
+                            <p class="text-[#5c5e62] font-light mt-1">Register via the secure TLS 1.3 gateway and verify your accredited collector or investor profile.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-50 text-[#3e6ae1] font-bold flex items-center justify-center shrink-0">02</div>
+                        <div>
+                            <h3 class="font-bold text-[#171a20] text-base">Select Asset Class</h3>
+                            <p class="text-[#5c5e62] font-light mt-1">Choose between direct equity allocation (Spacecominvestment funds), physical vehicle consignment, or home energy Powerwall 3 bundles.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-50 text-[#3e6ae1] font-bold flex items-center justify-center shrink-0">03</div>
+                        <div>
+                            <h3 class="font-bold text-[#171a20] text-base">Secure Multi-Chain Escrow</h3>
+                            <p class="text-[#5c5e62] font-light mt-1">Fund your retainer or equity deposit via USDT, USDC, ETH, BTC, or wire transfer with smart contract escrow protection.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-50 text-[#3e6ae1] font-bold flex items-center justify-center shrink-0">04</div>
+                        <div>
+                            <h3 class="font-bold text-[#171a20] text-base">Live Telemetry & Settlement</h3>
+                            <p class="text-[#5c5e62] font-light mt-1">Monitor your asset performance, vehicle delivery, or equity dividend distributions through your client portal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Investment Growth Simulator -->
+            <div class="bg-white border border-[#e2e8f0] p-8 md:p-10 rounded-3xl shadow-sm space-y-8 sticky top-28">
+                <h2 class="text-xl font-medium border-b border-[#e2e8f0] pb-4 text-[#171a20]">Spacecominvestment Growth Simulator</h2>
+
+                <div class="space-y-6 text-sm">
+                    <div>
+                        <div class="flex justify-between font-medium mb-2">
+                            <span class="text-xs uppercase tracking-widest text-[#5c5e62]">Capital Allocation ($)</span>
+                            <span id="invest-val" class="text-[#3e6ae1] font-bold">$50,000</span>
+                        </div>
+                        <input type="range" id="invest-input" min="10000" max="500000" step="5000" value="50000" oninput="calculateInvestment()" class="w-full accent-[#3e6ae1] bg-gray-200 h-2 rounded-lg cursor-pointer">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-[#5c5e62] mb-2">Investment Horizon</label>
+                        <select id="invest-term" onchange="calculateInvestment()" class="w-full bg-[#f4f4f4] border border-[#e2e8f0] rounded-xl px-4 py-3 text-[#171a20] font-medium focus:outline-none focus:border-[#3e6ae1]">
+                            <option value="1">1 Year (Est. 18% APY)</option>
+                            <option value="3" selected>3 Years (Est. 65% Cumulative)</option>
+                            <option value="5">5 Years (Est. 140% Cumulative)</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 pt-4 border-t border-[#e2e8f0]">
+                        <div class="bg-[#f4f4f4] p-5 rounded-2xl border border-[#e2e8f0]">
+                            <div class="text-xs text-[#5c5e62] uppercase">Projected Valuation</div>
+                            <div id="out-future" class="text-3xl font-bold text-[#3e6ae1] mt-2">$82,500</div>
+                        </div>
+                        <div class="bg-[#f4f4f4] p-5 rounded-2xl border border-[#e2e8f0]">
+                            <div class="text-xs text-[#5c5e62] uppercase">Est. Net Profit</div>
+                            <div id="out-profit" class="text-3xl font-bold text-[#171a20] mt-2">$32,500</div>
+                        </div>
+                    </div>
+
+                    <button onclick="alert('Investment allocation request submitted. A Tesla wealth advisor will contact you to finalize escrow documentation.')" class="w-full py-4 rounded-full bg-[#171a20] text-white font-bold text-xs uppercase tracking-widest hover:bg-black transition cursor-pointer">
+                        Allocate Capital via Escrow
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="tesla-footer">
+        <p>Tesla © 2026 • Spacecominvestment & Investor Relations</p>
+        <div class="footer-links">
+            <a href="about">Privacy & Legal</a>
+            <a href="about">Contact</a>
+            <a href="about">SEC Filings</a>
+        </div>
+    </footer>
+
+    <script>
+        function calculateInvestment() {
+            var principal = parseInt(document.getElementById('invest-input').value);
+            var term = parseInt(document.getElementById('invest-term').value);
+
+            document.getElementById('invest-val').innerText = '$' + principal.toLocaleString();
+
+            var multipliers = { 1: 1.18, 3: 1.65, 5: 2.40 };
+            var futureValue = Math.round(principal * multipliers[term]);
+            var profit = futureValue - principal;
+
+            document.getElementById('out-future').innerText = '$' + futureValue.toLocaleString();
+            document.getElementById('out-profit').innerText = '$' + profit.toLocaleString();
+        }
+
+        // Live stock ticker fluctuation simulation
+        setInterval(function() {
+            var base = 248.50;
+            var delta = (Math.random() - 0.48) * 0.80;
+            var newPrice = (base + delta).toFixed(2);
+            document.getElementById('stock-price').innerText = '$' + newPrice;
+        }, 4000);
+
+        calculateInvestment();
+    </script>
+</body>
+</html>

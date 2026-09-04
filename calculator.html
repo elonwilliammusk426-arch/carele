@@ -3,122 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energy & VPP Calculator | Tesla Ecosystem</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Solar & Powerwall Calculator | Tesla</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        tesla: { dark: '#0e1111', card: '#16191c', red: '#e82127', redHover: '#ff3338', muted: '#9ca3af' }
-                    },
-                    fontFamily: { sans: ['"Inter"', 'sans-serif'] }
-                }
-            }
-        }
-    </script>
-    <style> body { background-color: #000000; color: #ffffff; } </style>
 </head>
-<body class="font-sans antialiased selection:bg-tesla-red selection:text-white">
+<body class="antialiased bg-[#f4f4f4] text-[#171a20]">
 
-    <!-- Global Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-2">
-                <svg class="w-24 h-5 text-white fill-current" viewBox="0 0 342 35" xmlns="http://www.w3.org/2000/svg"><path d="M0 .1a9.7 9.7 0 107 7 11 11 0 00-7-7zm25.8 2.3c2.4 0 4.3.4 5.8 1.3 1.5.9 2.6 2.2 3.3 3.9.7 1.7 1 3.7 1 6.1s-.3 4.4-1 6.1c-.7 1.7-1.8 3-3.3 3.9-1.5.9-3.4 1.3-5.8 1.3s-4.3-.4-5.8-1.3c-1.5-.9-2.6-2.2-3.3-3.9-.7-1.7-1-3.7-1-6.1s.3-4.4 1-6.1c.7-1.7 1.8-3 3.3-3.9 1.5-.9 3.4-1.3 5.8-1.3zm0 2.2c-1.8 0-3.3.3-4.4 1-1.1.7-1.9 1.6-2.4 2.9-.5 1.3-.8 2.9-.8 4.7s.3 3.4.8 4.7c.5 1.3 1.3 2.2 2.4 2.9 1.1.7 2.6 1 4.4 1s3.3-.3 4.4-1c1.1-.7 1.9-1.6 2.4-2.9.5-1.3.8-2.9.8-4.7s-.3-3.4-.8-4.7c-.5-1.3-1.3-2.2-2.4-2.9-1.1-.7-2.6-1-4.4-1zm37.2-2.7h19.5v2.2H83v18.7h-2.3V4.6H63v-2.2zm31.7 0h2.3v20.9h-2.3V2.4zm34.2 0h2.3l11.4 20.9h-2.5l-3.5-6.6H127l-3.5 6.6h-2.5l11.4-20.9zm-4.3 12.1h8.2l-4.1-7.8-4.1 7.8zm41.2-12.1h19.5v2.2h-17.2v7.1h16.2v2.2h-16.2v7.2h17.2v2.2h-19.5V2.4zm35.8 0h2.3v18.7h15v2.2h-17.3V2.4zm35.2 0h2.3v18.7h15v2.2h-17.3V2.4z"/></svg>
-                <span class="text-xs uppercase tracking-widest text-tesla-red font-semibold pl-2 border-l border-white/20">Energy Calculator</span>
+    <!-- Navigation -->
+    <nav class="main-nav" style="background: rgba(255,255,255,0.95); border-bottom: 1px solid #e2e8f0; color: #171a20;">
+        <div class="nav-container">
+            <a href="index" class="logo flex items-center gap-3">
+                <svg viewBox="0 0 342 35" xmlns="http://www.w3.org/2000/svg" style="fill:#171a20; width:110px;"><path d="M0 .1a9.7 9.7 0 107 7 11 11 0 00-7-7zm25.8 2.3c2.4 0 4.3.4 5.8 1.3 1.5.9 2.6 2.2 3.3 3.9.7 1.7 1 3.7 1 6.1s-.3 4.4-1 6.1c-.7 1.7-1.8 3-3.3 3.9-1.5.9-3.4 1.3-5.8 1.3s-4.3-.4-5.8-1.3c-1.5-.9-2.6-2.2-3.3-3.9-.7-1.7-1-3.7-1-6.1s.3-4.4 1-6.1c.7-1.7 1.8-3 3.3-3.9 1.5-.9 3.4-1.3 5.8-1.3zm0 2.2c-1.8 0-3.3.3-4.4 1-1.1.7-1.9 1.6-2.4 2.9-.5 1.3-.8 2.9-.8 4.7s.3 3.4.8 4.7c.5 1.3 1.3 2.2 2.4 2.9 1.1.7 2.6 1 4.4 1s3.3-.3 4.4-1c1.1-.7 1.9-1.6 2.4-2.9.5-1.3.8-2.9.8-4.7s-.3-3.4-.8-4.7c-.5-1.3-1.3-2.2-2.4-2.9-1.1-.7-2.6-1-4.4-1zm37.2-2.7h19.5v2.2H83v18.7h-2.3V4.6H63v-2.2zm31.7 0h2.3v20.9h-2.3V2.4zm34.2 0h2.3l11.4 20.9h-2.5l-3.5-6.6H127l-3.5 6.6h-2.5l11.4-20.9zm-4.3 12.1h8.2l-4.1-7.8-4.1 7.8zm41.2-12.1h19.5v2.2h-17.2v7.1h16.2v2.2h-16.2v7.2h17.2v2.2h-19.5V2.4zm35.8 0h2.3v18.7h15v2.2h-17.3V2.4zm35.2 0h2.3v18.7h15v2.2h-17.3V2.4z"/></svg>
             </a>
-            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
-                <a href="index.html" class="hover:text-white transition">Overview</a>
-                <a href="configurator.html" class="hover:text-white transition">Configurator</a>
-                <a href="calculator.html" class="text-white">Energy Calculator</a>
-                <a href="ai-fleet.html" class="hover:text-white transition">AI & FSD</a>
-                <a href="dashboard.html" class="hover:text-white transition">Portal</a>
+            <div class="nav-links" style="color:#171a20;">
+                <a href="index">Home</a>
+                <a href="categories">Vehicles</a>
+                <a href="calculator" class="active" style="color:#3e6ae1;">Energy Calculator</a>
+                <a href="stock-watch">Stock Watch</a>
+                <a href="dashboard">Portal</a>
+            </div>
+            <div class="nav-actions flex items-center gap-4">
+                <a href="configurator" class="nav-cta hidden sm:inline-block">Custom Order</a>
+                <button class="nav-toggle" aria-label="Toggle Navigation">☰</button>
             </div>
         </div>
     </nav>
 
-    <!-- Main Calculator Layout -->
-    <main class="pt-24 pb-20 px-6 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <!-- Left: Inputs -->
-        <div class="space-y-8">
-            <div>
-                <span class="text-xs uppercase tracking-widest text-tesla-red font-semibold">Abundance Engine</span>
-                <h1 class="text-3xl md:text-4xl font-bold mt-2">Solar & Powerwall 3 Estimator</h1>
-                <p class="text-tesla-muted text-sm mt-2">Calculate your projected 25-year energy savings, grid independence, and Virtual Power Plant (VPP) earnings.</p>
-            </div>
-
-            <div class="bg-tesla-card border border-white/10 rounded-3xl p-8 space-y-6 shadow-2xl">
-                <!-- Input 1 -->
-                <div>
-                    <div class="flex justify-between text-sm font-medium mb-2">
-                        <span>Average Monthly Electric Bill</span>
-                        <span id="billVal" class="text-tesla-red font-bold">$250</span>
-                    </div>
-                    <input type="range" id="billInput" min="100" max="1000" step="25" value="250" oninput="calculate()" class="w-full accent-tesla-red bg-black/50 h-2 rounded-lg cursor-pointer">
-                </div>
-
-                <!-- Input 2 -->
-                <div>
-                    <div class="flex justify-between text-sm font-medium mb-2">
-                        <span>Sunlight Hours / Region Factor</span>
-                        <span id="sunVal" class="text-tesla-red font-bold">High (Sun Belt / CA)</span>
-                    </div>
-                    <input type="range" id="sunInput" min="1" max="3" step="1" value="2" oninput="calculate()" class="w-full accent-tesla-red bg-black/50 h-2 rounded-lg cursor-pointer">
-                </div>
-
-                <!-- Checkboxes -->
-                <div class="space-y-3 pt-4 border-t border-white/10">
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" id="includePowerwall" checked onchange="calculate()" class="w-5 h-5 accent-tesla-red rounded">
-                        <span class="text-sm font-medium">Include Powerwall 3 (Backup & VPP Earnings)</span>
-                    </label>
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" id="includeVpp" checked onchange="calculate()" class="w-5 h-5 accent-tesla-red rounded">
-                        <span class="text-sm font-medium">Participate in Virtual Power Plant (Grid Feed-in)</span>
-                    </label>
-                </div>
-            </div>
+    <!-- Main Container -->
+    <main class="pt-32 pb-24 px-6 max-w-6xl mx-auto space-y-12">
+        <div class="text-center space-y-4 max-w-3xl mx-auto">
+            <span class="text-xs uppercase tracking-[0.2em] font-bold text-[#3e6ae1]">Clean Energy & Storage</span>
+            <h1 class="text-4xl md:text-6xl font-medium tracking-tight text-[#171a20]">Solar & Powerwall Calculator</h1>
+            <p class="text-base text-[#5c5e62] font-light">
+                Calculate your projected 25-year energy savings, grid independence, and Virtual Power Plant (VPP) earnings with official Tesla solar and Powerwall 3 architecture.
+            </p>
         </div>
 
-        <!-- Right: Output Results -->
-        <div class="bg-tesla-card border border-white/10 rounded-3xl p-8 space-y-8 shadow-2xl">
-            <h2 class="text-xl font-bold border-b border-white/10 pb-4">Your Projected Abundance</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <!-- Left: Inputs -->
+            <div class="bg-white border border-[#e2e8f0] p-8 md:p-10 rounded-3xl shadow-sm space-y-6">
+                <h2 class="text-xl font-medium border-b border-[#e2e8f0] pb-4 text-[#171a20]">Home & Utility Parameters</h2>
+                
+                <div class="space-y-6 text-sm">
+                    <div>
+                        <div class="flex justify-between font-medium mb-2">
+                            <span class="text-xs uppercase tracking-widest text-[#5c5e62]">Average Monthly Electric Bill</span>
+                            <span id="billVal" class="text-[#3e6ae1] font-bold">$250</span>
+                        </div>
+                        <input type="range" id="billInput" min="100" max="1000" step="25" value="250" oninput="calculate()" class="w-full accent-[#3e6ae1] bg-gray-200 h-2 rounded-lg cursor-pointer">
+                    </div>
 
-            <div class="grid grid-cols-2 gap-6">
-                <div class="bg-black/40 p-5 rounded-2xl border border-white/5">
-                    <div class="text-xs text-tesla-muted uppercase">Est. Monthly Savings</div>
-                    <div id="outMonthly" class="text-3xl font-bold text-tesla-red mt-2">$215</div>
-                </div>
-                <div class="bg-black/40 p-5 rounded-2xl border border-white/5">
-                    <div class="text-xs text-tesla-muted uppercase">25-Year Net Savings</div>
-                    <div id="out25Year" class="text-3xl font-bold text-white mt-2">$64,500</div>
+                    <div>
+                        <div class="flex justify-between font-medium mb-2">
+                            <span class="text-xs uppercase tracking-widest text-[#5c5e62]">Sunlight Hours / Region Factor</span>
+                            <span id="sunVal" class="text-[#3e6ae1] font-bold">High (Sun Belt / CA)</span>
+                        </div>
+                        <input type="range" id="sunInput" min="1" max="3" step="1" value="2" oninput="calculate()" class="w-full accent-[#3e6ae1] bg-gray-200 h-2 rounded-lg cursor-pointer">
+                    </div>
+
+                    <div class="space-y-3 pt-4 border-t border-[#e2e8f0]">
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" id="includePowerwall" checked onchange="calculate()" class="w-5 h-5 accent-[#3e6ae1] rounded">
+                            <span class="text-sm font-medium text-[#171a20]">Include Powerwall 3 (Backup & VPP Earnings)</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" id="includeVpp" checked onchange="calculate()" class="w-5 h-5 accent-[#3e6ae1] rounded">
+                            <span class="text-sm font-medium text-[#171a20]">Participate in Virtual Power Plant (Grid Feed-in)</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
-            <div class="space-y-4 pt-4 border-t border-white/10 text-sm">
-                <div class="flex justify-between">
-                    <span class="text-tesla-muted">Grid Independence</span>
-                    <span id="outIndependence" class="font-bold text-white">92% Self-Powered</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-tesla-muted">Annual VPP Dividends</span>
-                    <span id="outVpp" class="font-bold text-white">$650 / year</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-tesla-muted">Carbon Offset</span>
-                    <span class="font-bold text-white">4.2 Tons / Year</span>
-                </div>
-            </div>
+            <!-- Right: Output Results -->
+            <div class="bg-white border border-[#e2e8f0] p-8 md:p-10 rounded-3xl shadow-sm space-y-8 sticky top-28">
+                <h2 class="text-xl font-medium border-b border-[#e2e8f0] pb-4 text-[#171a20]">Projected Financial & Energy Return</h2>
 
-            <button onclick="alert('Solar & Powerwall consultation booked! A Tesla energy advisor will contact you.')" class="w-full py-4 rounded-xl bg-tesla-red text-white font-bold hover:bg-tesla-redHover transition shadow-xl shadow-tesla-red/20">
-                Request Free Home Energy Assessment
-            </button>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-[#f4f4f4] p-5 rounded-2xl border border-[#e2e8f0]">
+                        <div class="text-xs text-[#5c5e62] uppercase">Est. Monthly Savings</div>
+                        <div id="outMonthly" class="text-3xl font-bold text-[#3e6ae1] mt-2">$215</div>
+                    </div>
+                    <div class="bg-[#f4f4f4] p-5 rounded-2xl border border-[#e2e8f0]">
+                        <div class="text-xs text-[#5c5e62] uppercase">25-Year Net Savings</div>
+                        <div id="out25Year" class="text-3xl font-bold text-[#171a20] mt-2">$64,500</div>
+                    </div>
+                </div>
+
+                <div class="space-y-4 pt-4 border-t border-[#e2e8f0] text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-[#5c5e62]">Grid Independence</span>
+                        <span id="outIndependence" class="font-bold text-[#171a20]">92% Self-Powered</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-[#5c5e62]">Annual VPP Dividends</span>
+                        <span id="outVpp" class="font-bold text-[#171a20]">$650 / year</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-[#5c5e62]">Carbon Offset</span>
+                        <span class="font-bold text-[#171a20]">4.2 Tons / Year</span>
+                    </div>
+                </div>
+
+                <button onclick="alert('Energy consultation booked! A Tesla energy advisor will contact you within 2 hours.')" class="w-full py-4 rounded-full bg-[#171a20] text-white font-bold text-xs uppercase tracking-widest hover:bg-black transition cursor-pointer">
+                    Request Free Home Energy Assessment
+                </button>
+            </div>
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="tesla-footer">
+        <p>Tesla © 2026</p>
+        <div class="footer-links">
+            <a href="about">Privacy & Legal</a>
+            <a href="about">Contact</a>
+            <a href="about">News</a>
+        </div>
+    </footer>
 
     <script>
         function calculate() {
@@ -148,6 +151,5 @@
         }
         calculate();
     </script>
-    <script src="i18n.js"></script>
 </body>
 </html>
